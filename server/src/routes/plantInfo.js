@@ -1,0 +1,19 @@
+const express = require('express')
+const router = express.Router()
+const axios = require('axios')
+
+const trefleURL = path => `https://trefle.io/api/${path}?token=RW5YTWtvRmo5Y0JaSmhKanhOYkRxZz09`
+
+router.get('/', (req, res) => {
+    if (req.query['q']) {
+        axios.get(trefleURL('species/q'))
+            .then(response => {
+                console.log(response)
+                res.status(200).json(response.data)
+            })
+            .catch(error => console.log(error))
+    }
+
+    res.json("No valid queries. Please check your request ")
+
+})
