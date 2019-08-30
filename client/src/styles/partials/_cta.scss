@@ -1,0 +1,33 @@
+@import './colours';
+
+input{
+   border: none;
+   height: 7vh;
+   border-radius: 7vw;
+   text-indent: 7vw;
+   background-color:  $black;
+   color:$white;
+
+   &:focus{
+       outline: none;
+   }
+}
+
+button{
+   border: none;
+   background-color: transparent;
+
+   &:focus{
+      outline: none;
+
+   }
+}
+
+@media screen and(min-width: $tablet-min){
+   input{
+      border: none;
+      height: 6.5vh;
+      border-radius: 3vw;
+      text-indent: 3vw;
+   }
+}

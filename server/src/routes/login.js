@@ -33,3 +33,5 @@ router.post('/login', (req, res)=>{
         res.status(403).json("Invalid email")
     })
 })
+
+module.exports = router

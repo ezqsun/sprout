@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   UserPlant.associate = function(models) {
     // associations can be defined here
-    UserPlant.belongsTo(models.User, {
+    UserPlant.belongsTo(models.UserCollection, {
       onDelete: 'CASCADE'
     })
   };

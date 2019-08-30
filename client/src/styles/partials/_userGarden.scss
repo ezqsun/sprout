@@ -1,0 +1,33 @@
+@import "./colours";
+@import "./dimensions";
+@import "./animations";
+
+.user-garden{
+    margin-top: 6vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    font-size: 3vw;
+
+    &__content{
+        width: $content-width--mobile;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title{
+        font-size: 1.5em;
+        margin: 5vh 0;
+    }
+
+    &__plant-cards{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+

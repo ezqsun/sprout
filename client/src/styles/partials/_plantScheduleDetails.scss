@@ -1,0 +1,40 @@
+@import "./colours";
+@import "./dimensions";
+@import "./animations";
+
+.schedule-detail {
+  width: 30%;
+  padding: 1vh 1vw;
+  display: flex;
+  justify-content: space-around;
+  margin-right: 1vw;
+
+  &__icon {
+    width: 45%;
+    border-right: 1px solid $white;
+    padding-right: 1.5vw;
+  }
+
+  &__text{
+      width: 5vw;
+      height: 5vw;
+      border-radius: 2.5vw;
+      background-color: $white;
+      color: $grey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &--red{
+          background-color: rgb(255, 115, 115);
+          width: 5vw;
+          height: 5vw;
+          border-radius: 2.5vw;
+          color: $grey;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+  }
+}

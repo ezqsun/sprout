@@ -2,13 +2,30 @@
 @import './partials/animations';
 @import './partials/colours';
 @import './partials/dimensions';
+@import './partials/logIn';
+@import './partials/cta';
+@import './partials/signup';
+@import './partials/userGarden';
+@import './partials/plantCard';
+@import './partials/plantScheduleDetails';
+
+
+
 
 
 *{
     margin: 0;
     box-sizing: border-box;
+    font-family: GothamRounded;
+    font-weight: 200;
+    color: $black;
     
     a{
         text-decoration: none;
+        color: initial;
     }
+}
+
+@media screen and(min-width: $tablet-min){
+
 }

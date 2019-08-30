@@ -50,13 +50,422 @@
   font-style: italic;
 }
 
+@-webkit-keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+@keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3vw;
+}
+
+.login__content {
+  width: 100%;
+  height: 50%;
+}
+
+.login__section {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.login__section__title {
+  font-size: 1.3em;
+  margin: 2vh 0;
+}
+
+.login__section__entry {
+  height: 100%;
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.login__section__entry form {
+  width: 100%;
+  height: 55%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.login__section__sign-in {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+@media screen and (min-width: 768px) {
+  .login {
+    font-size: 1.5vw;
+  }
+  .login__section__entry {
+    height: 100%;
+    width: 40%;
+  }
+  .login__section__sign-in {
+    margin: 2vh 0;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+  }
+}
+
+input {
+  border: none;
+  height: 7vh;
+  border-radius: 7vw;
+  text-indent: 7vw;
+  background-color: #182628;
+  color: #F2F2F2;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+button:focus {
+  outline: none;
+}
+
+@media screen and (min-width: 768px) {
+  input {
+    border: none;
+    height: 6.5vh;
+    border-radius: 3vw;
+    text-indent: 3vw;
+  }
+}
+
+@keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+.signup {
+  font-size: 2.7vw;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.signup__content {
+  margin-top: 15vh;
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.signup__title {
+  font-size: 1.5em;
+  margin: 5vh 0;
+  font-weight: 500;
+}
+
+.signup__form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 5vh 0;
+}
+
+.signup__form__input {
+  margin: 5vh 0;
+}
+
+.signup__submit:hover {
+  -webkit-animation: text-to-green 1s ease forwards;
+          animation: text-to-green 1s ease forwards;
+}
+
+@media screen and (min-width: 768px) {
+  .signup {
+    font-size: 2vw;
+  }
+  .signup__content {
+    margin-top: 10vh;
+    width: 40%;
+  }
+  .signup__title {
+    margin: 3vh 0;
+  }
+  .signup__form {
+    margin: 3vh 0;
+  }
+  .signup__form__input {
+    margin: 2.5vh 0;
+  }
+}
+
+@keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+.user-garden {
+  margin-top: 6vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 3vw;
+}
+
+.user-garden__content {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.user-garden__title {
+  font-size: 1.5em;
+  margin: 5vh 0;
+}
+
+.user-garden__plant-cards {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+.plant-card {
+  width: 100%;
+  padding: 1.2vh 1vh;
+  font-size: 3vw;
+  height: 23vw;
+  position: relative;
+  margin: 3vh 0;
+}
+
+.plant-card__content {
+  width: 90%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #5f5f5f;
+  color: #F2F2F2;
+  border-radius: 2vh;
+}
+
+.plant-card__content-text {
+  width: 100%;
+  height: 100%;
+  padding: 1vh 2vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.plant-card__content-text .plant-schedule {
+  width: 100%;
+  height: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.plant-card__content__title {
+  width: 100%;
+  height: 45%;
+  color: #F2F2F2;
+}
+
+.plant-card__content__title .plant-name {
+  font-size: 1em;
+  font-weight: normal;
+  color: inherit;
+}
+
+.plant-card__content__title .plant-common-name {
+  font-size: 0.9em;
+  color: inherit;
+}
+
+.plant-card__image {
+  height: 23vw;
+  width: 23vw;
+  border-radius: 11.5vw;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+.schedule-detail {
+  width: 30%;
+  padding: 1vh 1vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-right: 1vw;
+}
+
+.schedule-detail__icon {
+  width: 45%;
+  border-right: 1px solid #F2F2F2;
+  padding-right: 1.5vw;
+}
+
+.schedule-detail__text {
+  width: 5vw;
+  height: 5vw;
+  border-radius: 2.5vw;
+  background-color: #F2F2F2;
+  color: #5f5f5f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.schedule-detail__text--red {
+  background-color: #ff7373;
+  width: 5vw;
+  height: 5vw;
+  border-radius: 2.5vw;
+  color: #5f5f5f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 * {
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: GothamRounded;
+  font-weight: 200;
+  color: #182628;
 }
 
 * a {
   text-decoration: none;
+  color: initial;
 }
 /*# sourceMappingURL=App.css.map */
