@@ -31,7 +31,7 @@ router.get('/:userId/garden', (req, res) => {
         where: {
             userId: req.params.userId,
         },
-        plain: true
+        raw: true
     })
         .then(collections => {
             res.status(200).json(collections)
@@ -47,9 +47,10 @@ router.get('/:userId/:collectionId', (req, res) => {
         where: {
             collectionId: req.params.collectionId
         },
-        plain: true
+        raw: true
     })
-        .then(plants => { res.status(200).json(plants) })
+        .then(plants => { 
+            res.status(200).json(plants) })
         .catch(error => { 
             console.log(error)
             res.json('error: ' + error)
