@@ -42,10 +42,28 @@ router.get('/:userId/garden', (req, res) => {
         })
 })
 
-router.get('/:userId/:collectionId', (req, res) => {
+//get plants for a user from a specific collection
+router.get('/:userId/plants/:collectionId', (req, res) => {
     UserPlant.findAll({
         where: {
-            collectionId: req.params.collectionId
+            collectionId: req.params.collectionId,
+            userId: req.params.userId
+        },
+        raw: true
+    })
+        .then(plants => { 
+            res.status(200).json(plants) })
+        .catch(error => { 
+            console.log(error)
+            res.json('error: ' + error)
+        })
+})
+
+//get all plants for a user
+router.get('/:userId/plants', (req, res) => {
+    UserPlant.findAll({
+        where: {
+            userId: req.params.userId
         },
         raw: true
     })

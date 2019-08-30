@@ -22,7 +22,7 @@ export default function PlantScheduleDetail(props) {
 
     }
 
-    let daysUntil = (props.content === "T") ?
+    let daysUntil = (props.content >= 7) ?
         <div className="schedule-detail__text--red">
             <span className="schedule-detail__text__days-until">{props.content}</span>
         </div>

@@ -17,6 +17,9 @@ module.exports = {
       collectionId:{
         type: Sequelize.INTEGER
       },
+      userId:{
+        type: Sequelize.INTEGER
+      },
       lastWatered: {
         type: Sequelize.DATEONLY
       },

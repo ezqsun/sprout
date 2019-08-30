@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'collectionId',
       targetKey: 'id'
     })
+    UserPlant.belongsTo(models.User, {
+      onDelete: 'CASCADE',
+      foreignKey: 'userId',
+      targetKey: 'id'
+    })
   };
   return UserPlant;
 };

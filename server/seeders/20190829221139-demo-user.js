@@ -48,6 +48,7 @@ module.exports = {
       name: 'Dave',
       lastWatered: Sequelize.fn('NOW'),
       lastFertilized: Sequelize.fn('NOW'),
+      userId: user.id
     },
     {
       collectionId: collection.id,
@@ -55,6 +56,8 @@ module.exports = {
       name: 'Shirley',
       lastWatered: Sequelize.fn('NOW'),
       lastFertilized: Sequelize.fn('NOW'),
+      userId: user.id
+
     },
     {
       collectionId: collection.id,
@@ -62,6 +65,8 @@ module.exports = {
       name: 'Bob',
       lastWatered: Sequelize.fn('NOW'),
       lastFertilized: Sequelize.fn('NOW'),
+      userId: user.id
+
     }
   ], {})
   },

@@ -11,9 +11,10 @@ export default class AppContainer extends React.Component {
             lastName: '',
             userName: '',
             email: '',
-            firstName: '',
             userCollections: [],
-            userPlants: [],
+            userPlants:[],
+            currentCollectionPlants: [],
+            isLoading: true,
         }
     }
     
@@ -37,7 +38,7 @@ export default class AppContainer extends React.Component {
     }
 
     setUser = () =>{
-        axios.get(`/${this.userId}`)
+        axios.get(`/user/${this.state.userId}`)
         .then(response=>{
             let {userId, firstName, lastName, userName, email} = response.data
             this.setState({
@@ -47,14 +48,68 @@ export default class AppContainer extends React.Component {
                 userName: userName,
                 email: email,
             })
-
         })
+        .catch(error=>console.log('error setting user info: ' + error))
     }
 
+    setCollection = () =>{
+        axios.get(`/user/${this.state.userId}/garden`)
+        .then(response=>{
+            this.setState({
+                userCollections: response.data
+            })
+        })
+        .catch(error=>console.log('error setting collection: ' + error))
+    }
+
+    setPlants = (collectionId) =>{
+        axios.get(`/user/${this.state.userId}/plants/${collectionId}`)
+        .then(response=>{
+            this.setState({
+                currentCollectionPlants: response.data
+            })
+        })
+        .catch(error=>console.log('error setting plants: ' + error))
+    }
+
+    setAllPlants = () =>{
+        axios.get(`/user/${this.state.userId}/plants`)
+        .then(response=>{
+            response.data.forEach(plant => {
+                axios.get(`/plant/${plant.trefleReferenceId}`)
+                .then(response=>{
+                    plant.trefleData = response.data
+                    let currUserPlants = this.state.userPlants
+                    currUserPlants.push(plant)
+                
+                    this.setState({
+                        userPlants: currUserPlants
+                    })
+                })
+                .catch(error=>{console.log(error)})
+
+            })
+
+        })
+        .catch(error=>console.log('error setting plants: ' + error))
+    }
+
+    componentDidMount(){
+        this.setUser()
+        this.setCollection()
+        this.setAllPlants()
+        this.setState({
+            isLoading: false,
+        })
+    }
     render() {
-        return (
-            <App submitRegister={this.submitRegister} registerRef={this.registerRef}/>
-        )
+        console.log(this.state)
+
+        return this.state.isLoading?
+        ""
+        :
+        <App submitRegister={this.submitRegister} registerRef={this.registerRef} state={this.state} setPlants={this.setPlants}/>
+        
     }
 
 }
