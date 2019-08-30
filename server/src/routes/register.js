@@ -27,6 +27,7 @@ router.post('/', (req, res) => {
                     User.create(userData)
                         .then(user => {
                             res.json({ status: user.email + ' registered as ' + user.userName })
+                            //resturn token for authentication
                         })
                         .catch(err => {
                             res.send("error1: " + err)

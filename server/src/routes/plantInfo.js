@@ -7,7 +7,7 @@ const trefleURL = path => `https://trefle.io/api/${path}?token=RW5YTWtvRmo5Y0JaS
 //search for plant by name; returns list of possible matches
 router.get('/', (req, res) => {
     if (req.query['q']) {
-        axios.get(trefleURL('plant/q'))
+        axios.get(trefleURL('species/q'))
             .then(response => {
                 console.log(response.data)
                 res.status(200).json(response.data)
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 
 //search for specific plant details
 router.get('/:speciesId', (req, res)=>{
-    axios.get(trefleURL(`plant/${req.params.speciesId}`))
+    axios.get(trefleURL(`species/${req.params.speciesId}`))
     .then(response=>{
         console.log(response.data)
         res.status(200).json(response.data)

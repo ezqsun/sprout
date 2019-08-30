@@ -8,12 +8,14 @@ module.exports = (sequelize, DataTypes) => {
     trefleReferenceId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     lastWatered: DataTypes.DATEONLY,
-    lastFertilized: DataTypes.DATEONLY
+    lastFertilized: DataTypes.DATEONLY,
   }, {});
   UserPlant.associate = function(models) {
     // associations can be defined here
     UserPlant.belongsTo(models.UserCollection, {
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      foreignKey: 'collectionId',
+      targetKey: 'id'
     })
   };
   return UserPlant;

@@ -5,7 +5,7 @@ import LandingPage from './LandingPage'
 import LogIn from './LogIn'
 import UserGarden from './UserGarden'
 import User from './User'
-import SignUp from './SignUp'
+import Register from './Register'
 
 function App(props) {
   return (
@@ -15,7 +15,7 @@ function App(props) {
         <Route path="/login" component={LogIn} />
         <Route exact path="/user" component={User} />
         <Route path="/user/garden" component={UserGarden} />
-        <Route path="/signup" render={()=><SignUp submitSignUp={props.submitSignUp} signUpRef={props.signUpRef}/>} />
+        <Route path="/register" render={()=><Register submitRegister={props.submitRegister} registerRef={props.registerRef}/>} />
       </Switch>
     </div>
   );
