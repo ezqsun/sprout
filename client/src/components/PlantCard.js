@@ -4,17 +4,11 @@ import plantImg from '../assets/images/plant1.jpg'
 import daysSince from './utilities/daysSince'
 
 export default function PlantCard(props) {
-    let { name, trefleReferenceId, lastWatered, lastFertilized, trefleData } = props.plant
+    let { name, lastWatered, lastFertilized, id, trefleReferenceId } = props.plant
+    let { common_name, growth, scientific_name, images } = props.trefleData
 
-    // let daysSinceWater = daysSince(lastWatered)
-    // let daysSinceFertilize = daysSince(lastFertilized)
-
-    console.log(lastFertilized)
     let daysSinceWater = daysSince(lastWatered)
     let daysSinceFertilize = daysSince(lastFertilized)
-
-
-
 
     return (
         <article className="plant-card">
@@ -22,12 +16,11 @@ export default function PlantCard(props) {
                 <div className="plant-card__content-text">
                     <div className="plant-card__content__title">
                         <h2 className="plant-name">{name}</h2>
-                        <span className="plant-common-name">{trefleData.common_name}</span>
+                        <span className="plant-common-name">{common_name}</span>
                     </div>
                     <section className="plant-schedule">
-                        <PlantScheduleDetail detail="water" content={daysSinceWater} />
-                        <PlantScheduleDetail detail="soil" content={daysSinceFertilize} />
-
+                        <PlantScheduleDetail detail="water" content={daysSinceWater} id={id} updatePlantSchedule={props.updatePlantSchedule}/>
+                        <PlantScheduleDetail detail="soil" content={daysSinceFertilize} id={id} updatePlantSchedule={props.updatePlantSchedule}/>
                     </section>
                 </div>
             </div>

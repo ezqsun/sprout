@@ -10,6 +10,7 @@ const app = express()
 
 app.use(bodyParser.json())
 
+
 // app.use('/plant', middleware.verifyToken, plantInfo)
 // app.use('/user', middleware.verifyToken, users)
 app.use('/plant', plantInfo)

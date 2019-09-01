@@ -436,6 +436,7 @@ button:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
 }
 
 .schedule-detail__text--red {
@@ -453,6 +454,42 @@ button:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
+}
+
+.schedule-detail__hover-text {
+  font-size: 0.72em;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 5vw;
+  height: 5vw;
+  color: #F2F2F2;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  top: -2vw;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.schedule-detail__hover-text:hover {
+  color: #65CCB8;
+  cursor: pointer;
+}
+
+.schedule-detail:hover .schedule-detail__text {
+  visibility: hidden;
+}
+
+.schedule-detail:hover .schedule-detail__text--red {
+  visibility: hidden;
+}
+
+.schedule-detail:hover .schedule-detail__hover-text {
+  visibility: visible;
 }
 
 * {

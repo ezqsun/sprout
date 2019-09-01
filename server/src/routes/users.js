@@ -1,12 +1,10 @@
 const { User, UserPlant, UserCollection } = require('../../models')
 const express = require('express')
 const router = express.Router()
+const axios = require('axios')
 
-// router.post('/garden', (req, res)=>{
-//     UserCollection.create({
+const trefleURL = path => `https://trefle.io/api/${path}?token=RW5YTWtvRmo5Y0JaSmhKanhOYkRxZz09`
 
-//     })
-// })
 
 router.get('/:userId', (req, res) => {
     User.findOne({
@@ -51,15 +49,46 @@ router.get('/:userId/plants/:collectionId', (req, res) => {
         },
         raw: true
     })
-        .then(plants => { 
-            res.status(200).json(plants) })
-        .catch(error => { 
+        .then(plants => {
+            res.status(200).json(plants)
+        })
+        .catch(error => {
             console.log(error)
             res.json('error: ' + error)
         })
 })
 
 //get all plants for a user
+// router.get('/:userId/plants', (req, res) => {
+//     UserPlant.findAll({
+//         where: {
+//             userId: req.params.userId
+//         },
+//         raw: true
+//     })
+//         .then(plants => {
+//             let mainObject = {},
+//                 promises = [];
+
+//             plants.forEach(plant => {
+//                 mainObject[plant.trefleReferenceId] = plant
+//                 promises.push(axios.get(trefleURL(`species/${plant.trefleReferenceId}`)))
+//             });
+//             axios.all(promises)
+//                 .then(results => {
+//                     results.forEach(response => {
+//                         mainObject[response.data.id]['trefleData'] = response.data;
+//                     })
+//                     res.status(200).json(mainObject)
+//                 })
+//                 .catch(error => console.log('error getting trefle data for all user plants: ' + error));
+//         })
+//         .catch(error => {
+//             console.log(error)
+//             res.json('error no plants found for user: ' + error)
+//         })
+// })
+
 router.get('/:userId/plants', (req, res) => {
     UserPlant.findAll({
         where: {
@@ -67,12 +96,83 @@ router.get('/:userId/plants', (req, res) => {
         },
         raw: true
     })
-        .then(plants => { 
-            res.status(200).json(plants) })
-        .catch(error => { 
+        .then(plants => {
+            res.status(200).json(plants)
+        })
+        .catch(error => {
+            console.log(error)
+            res.json('error no plants found for user: ' + error)
+        })
+})
+
+//get specific plant
+router.get('/:userId/plants/:plantId', (req, res) => {
+    UserPlant.findOne({
+        where: {
+            id: req.params.plantId
+        },
+        raw: true
+    })
+        .then(plants => {
+            res.status(200).json(plant)
+        })
+        .catch(error => {
             console.log(error)
             res.json('error: ' + error)
         })
 })
+
+//updated user plant lastWatered or lastFertilized date
+router.put('/:userId/:plantId', (req, res) => {
+    let updateData = {};
+
+    UserPlant.update(
+        { [req.body.category]: req.body.value },
+        { where: { id: req.params.plantId } })
+        .then(plant => {
+            res.status(200).json(`successfully updated ${req.body.category} to ${req.body.value} for ${req.params.userId}'s plant #${req.params.plantId}`)
+        })
+        .catch(error=>res.json(`error updating ${req.body.category} to ${req.body.value}: ${error}`))
+})
+// router.put('/:userId/:plantId', (req, res) => {
+//     let updateData = {};
+
+//     UserPlant.update(
+//         {[req.body.category]: req.body.value},
+//         {where: { id: req.params.plantId }})
+//         .then(plant => {
+//             UserPlant.findAll({
+//                 where: {
+//                     userId: req.params.userId
+//                 },
+//                 raw: true
+//             })
+//                 .then(plants => {
+//                     let mainObject = {},
+//                         promises = [];
+
+//                     plants.forEach(plant => {
+//                         mainObject[plant.trefleReferenceId] = plant
+//                         promises.push(axios.get(trefleURL(`species/${plant.trefleReferenceId}`)))
+//                     });
+//                     axios.all(promises)
+//                         .then(results => {
+//                             results.forEach(response => {
+//                                 mainObject[response.data.id]['trefleData'] = response.data;
+//                             })
+//                             res.status(200).json(mainObject)
+//                         })
+//                         .catch(error => console.log('error getting trefle data for all user plants: ' + error));
+//                 })
+//                 .catch(error => {
+//                     console.log(error)
+//                     res.json('error no plants found for user: ' + error)
+//                 })
+//         })
+//         .catch(error => {
+//             console.log(error)
+//             res.json('error: ' + error)
+//         })
+// })
 
 module.exports = router

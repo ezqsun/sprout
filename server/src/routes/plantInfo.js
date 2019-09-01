@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     if (req.query['q']) {
         axios.get(trefleURL('species/q'))
             .then(response => {
-                console.log(response.data)
                 res.status(200).json(response.data)
             })
             .catch(error => console.log(error))
@@ -23,7 +22,6 @@ router.get('/', (req, res) => {
 router.get('/:speciesId', (req, res)=>{
     axios.get(trefleURL(`species/${req.params.speciesId}`))
     .then(response=>{
-        console.log(response.data)
         res.status(200).json(response.data)
     })
     .catch(error=>console.log(error))
