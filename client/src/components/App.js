@@ -22,7 +22,7 @@ function App(props) {
           <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsTrefleInfo={userPlantsTrefleInfo}/>} />
         <Route path="/register" render={() => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} />} />
         <Route path="/user/garden/:plantId" render={({ match }) => 
-          <PlantInfo plantId={match} userPlants={userPlants}/>
+          <PlantInfo plantId={match.params.plantId} userPlants={userPlants} userPlantsTrefleInfo={userPlantsTrefleInfo}/>
         } />
         {/* <Route path="/user/garden/:collectionId" render={({match})=><UserLocationPage collectionId={match} setPlants={props.setPlants} userPlants={userPlants}/>}/> */}
       </Switch>

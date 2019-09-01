@@ -134,45 +134,5 @@ router.put('/:userId/:plantId', (req, res) => {
         })
         .catch(error=>res.json(`error updating ${req.body.category} to ${req.body.value}: ${error}`))
 })
-// router.put('/:userId/:plantId', (req, res) => {
-//     let updateData = {};
-
-//     UserPlant.update(
-//         {[req.body.category]: req.body.value},
-//         {where: { id: req.params.plantId }})
-//         .then(plant => {
-//             UserPlant.findAll({
-//                 where: {
-//                     userId: req.params.userId
-//                 },
-//                 raw: true
-//             })
-//                 .then(plants => {
-//                     let mainObject = {},
-//                         promises = [];
-
-//                     plants.forEach(plant => {
-//                         mainObject[plant.trefleReferenceId] = plant
-//                         promises.push(axios.get(trefleURL(`species/${plant.trefleReferenceId}`)))
-//                     });
-//                     axios.all(promises)
-//                         .then(results => {
-//                             results.forEach(response => {
-//                                 mainObject[response.data.id]['trefleData'] = response.data;
-//                             })
-//                             res.status(200).json(mainObject)
-//                         })
-//                         .catch(error => console.log('error getting trefle data for all user plants: ' + error));
-//                 })
-//                 .catch(error => {
-//                     console.log(error)
-//                     res.json('error no plants found for user: ' + error)
-//                 })
-//         })
-//         .catch(error => {
-//             console.log(error)
-//             res.json('error: ' + error)
-//         })
-// })
 
 module.exports = router
