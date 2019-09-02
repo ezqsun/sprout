@@ -6,31 +6,8 @@ export default class PlantInfo extends React.Component {
         super(props)
         this.state = {
             isLoading: true,
-            // plant: {},
-            // plantTrefleInfo: {},
         }
     }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     let { plantId, userPlants, userPlantsInfo } = this.props
-
-    //     if (userPlants.length && userPlantsInfo.length && !Object.entries(prevState.plant).length) {
-    //         let currPlant = userPlants.find(p => { return p.id.toString() === plantId })
-    //         let currPlantTrefleInfo = userPlantsInfo.find(treflePlant => { return treflePlant.id === currPlant.trefleReferenceId })
-    //         let { common_name } = currPlantTrefleInfo
-    //         let { moisture_use, resprout_ability, shade_tolerance, temperature_minimum } = currPlantTrefleInfo.growth
-    //         let { growth_rate, growth_period, growth_form } = currPlantTrefleInfo.specifications
-    //         let temperature_minimum_C = temperature_minimum["deg_c"]
-    //         console.log(currPlantTrefleInfo)
-
-    //         this.setState({
-    //             plant: currPlant,
-    //             images: currPlantTrefleInfo.images,
-    //             plantTrefleInfo: {common_name, moisture_use, resprout_ability, shade_tolerance, growth_form, growth_period, growth_rate, temperature_minimum_C, },
-    //             isLoading: false,
-    //         })
-    //     }
-    // }
     componentDidMount() {
         this.props.handleSelectPlantInfo(this.props.plantId)
         console.log('mount')
@@ -53,10 +30,12 @@ export default class PlantInfo extends React.Component {
         let { currPlant } = this.props
         let userPlantData = currPlant[0]
         let plantData = currPlant[1]
+        let image_url
 
         let plantDetailCards, imagesDisplay
 
         if (userPlantData && plantData) {
+            //plant data is from Trefle
             if ('common_name' in plantData) {
                 let { common_name } = plantData
                 let { moisture_use, resprout_ability, shade_tolerance, temperature_minimum } = plantData.growth
@@ -85,23 +64,25 @@ export default class PlantInfo extends React.Component {
                 })
 
             }
+            //plant data is from harvest helper
             else {
                 let details = ["id", "name", "image_url"]
-                Object.entries(plantData).map(detail => {
+                plantDetailCards = Object.entries(plantData).map(detail => {
                     if (!details.includes(detail[0])) {
                         return <PlantInfoDetail key={detail[0]} title={detail[0]} value={detail[1]} />
+                    }
+                    else if (detail[0] === "image_url") {
+                        image_url = detail[1]
                     }
                 })
             }
         }
 
-        // if (images.length !== 0) {
-        //     imagesDisplay = <div className="plant-info__content__image" style={{ width: '50vw', height: '50vh', background: `url(${`${images[0].url}`})`, backgroundSize: 'cover' }}></div>
-        //     console.log(images[0].url)
+        if (image_url) {
+            imagesDisplay = <div className="plant-info__content__image" style={{ width: '50vw', height: '50vh', background: `url(${`https://res-4.cloudinary.com/do6bw42am/image/upload/c_scale,f_auto,h_300/v1/${image_url}`})`, backgroundSize: 'cover' }}></div>
 
-        // }
+        }
 
-        // return (
         return this.state.isLoading ?
             "Loading plant info"
             : (
@@ -110,8 +91,7 @@ export default class PlantInfo extends React.Component {
                         <div className="plant-info__content__title">
                             <span className="plant-info__content__title-pet-name">{userPlantData.name}</span>
                         </div>
-                        {/* {imagesDisplay} */}
-
+                        {imagesDisplay}
                         <div className="plant-info__content__details">
                             {plantDetailCards}
                         </div>
