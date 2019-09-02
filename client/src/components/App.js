@@ -7,6 +7,7 @@ import UserGarden from './UserGarden'
 import User from './User'
 import Register from './Register'
 import PlantInfo from './PlantInfo'
+import Search from './Search'
 import UserLocationPage from './UserLocationPage'
 
 
@@ -19,11 +20,12 @@ function App(props) {
         <Route path="/login" component={LogIn} />
         <Route exact path="/user" component={User} />
         <Route exact path="/user/garden" render={() =>
-          <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsTrefleInfo={userPlantsTrefleInfo}/>} />
+          <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsTrefleInfo={userPlantsTrefleInfo} />} />
         <Route path="/register" render={() => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} />} />
-        <Route path="/user/garden/:plantId" render={({ match }) => 
-          <PlantInfo plantId={match.params.plantId} userPlants={userPlants} userPlantsTrefleInfo={userPlantsTrefleInfo}/>
+        <Route path="/user/garden/:plantId" render={({ match }) =>
+          <PlantInfo plantId={match.params.plantId} userPlants={userPlants} userPlantsTrefleInfo={userPlantsTrefleInfo} />
         } />
+        <Route exact path="/search" component={Search} />
         {/* <Route path="/user/garden/:collectionId" render={({match})=><UserLocationPage collectionId={match} setPlants={props.setPlants} userPlants={userPlants}/>}/> */}
       </Switch>
     </div>
