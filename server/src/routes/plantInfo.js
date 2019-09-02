@@ -6,28 +6,45 @@ const trefleURL = path => `https://trefle.io/api/${path}?token=RW5YTWtvRmo5Y0JaS
 
 //search for plant by name; returns list of possible matches (only those that trefle has complete data on)
 router.get('/trefle/name/:name', (req, res) => {
-    let promises = [axios.get(`https://trefle.io/api/plants?q=${req.params.name}&token=RW5YTWtvRmo5Y0JaSmhKanhOYkRxZz09`), axios.get(`https://trefle.io/api/species?q=${req.params.name}&token=RW5YTWtvRmo5Y0JaSmhKanhOYkRxZz09`)]
+    let promises = [axios.get(`https://trefle.io/api/plants?q=${req.params.name}&token=RW5YTWtvRmo5Y0JaSmhKanhOYkRxZz09`), 
+    // axios.get(`https://trefle.io/api/species?q=${req.params.name}&token=RW5YTWtvRmo5Y0JaSmhKanhOYkRxZz09`)
+]
 
     axios.all(promises)
         .then(results => {
             let ret = [], ids = []
             results.forEach(response => {
                 // if (response.data.length !== 0) {
-                    response.data.forEach(result => {
-                        if (result['complete_data'] && !(ids.includes(result.id))) {
-                            if (('is_main_species' in result) && result['is_main_species']) {
-                                ids.push(result.id)
-                                ret.push(result)
+                response.data.forEach(result => {
+                    if (result['complete_data'] && !(ids.includes(result.id))) {
 
-                            } else if (!('is_main_species' in result)) {
-                                ids.push(result.id)
-                                ret.push(result)
-                            }
+                        //response is from /species endpoint
+                        if (('is_main_species' in result) && result['is_main_species']) {
+                            ids.push(result.id)
                         }
-                    })
+
+                        //response is from /plants endpoint
+                        else if (!('is_main_species' in result)) {
+                            ids.push(result.id)
+                        }
+                    }
+                })
                 // }
             })
-            res.json(ret)
+            // let newPromises = ids.map(id => {
+            //     return axios.get(trefleURL(`species/${id}`))
+            // })
+            // console.log(newPromises)
+            axios.get(trefleURL(`species/${ids[0]}`))
+            .then(response=>{res.json(response.data)})
+            .catch(error=>{res.json('error getting detailed data on the possible query match: ' + error)})
+            // axios.all(newPromises)
+            //     .then(results => {
+            //         console.log(results)
+            //         res.json(results)
+
+            //     })
+            //     .catch(error => res.json('error getting detailed data on all possible query matches: ' + error))
         })
         .catch(error => res.json('no valid queries on trefle: ' + error))
 

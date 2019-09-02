@@ -120,21 +120,24 @@ export default class AppContainer extends React.Component {
 
     handleSearchForPlant = (event) => {
         event.preventDefault()
-        let q = formatSearchString(this.searchRef.current.value)
+        let query = this.searchRef.current.value
+        let a = formatSearchString(query+'s')
+        let b = formatSearchString(query+'es')
+        let q = formatSearchString(query)
+        console.log(a, b, q)
 
-        let promises = [axios.get(`/plant/trefle/name/${q}`), axios.get(`/plant/harvesthelper/name/${q}`)]
+        let promises = [axios.get(`/plant/trefle/name/${q}`), axios.get(`/plant/harvesthelper/name/${q}`), axios.get(`/plant/harvesthelper/name/${a}`), axios.get(`/plant/harvesthelper/name/${b}`)]
         axios.all(promises)
-        .then(axios.spread((trefle, harvesthelper)=>{
+        .then(axios.spread((trefle, harvesthelper1, harvesthelper2, harvesthelper3)=>{
             let newSearchResults = []
-            trefle.data.forEach(result=>{
-                newSearchResults.push(result)
+            newSearchResults.push(trefle.data)
+            let harvesthelperData = [harvesthelper1, harvesthelper2, harvesthelper3]
+            harvesthelperData.forEach(data=>{
+                if (data.data){
+                    newSearchResults.push(data.data)
+                }
             })
-            if (harvesthelper.data){
-                newSearchResults.push(harvesthelper.data)
-            }
             this.setState({searchResults:newSearchResults})
-
-            console.log(newSearchResults)
         }))
         .catch(error=> console.log('error searching for plant: ' + error))
 

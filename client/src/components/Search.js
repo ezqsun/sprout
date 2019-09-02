@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchResult from './SearchResult'
+import { Link } from "react-router-dom";
 
 const searchIcon =
     <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -13,7 +14,7 @@ const searchIcon =
 
 export default function Search(props) {
     let searchCards = props.searchResults.map(result=>{
-        return <SearchResult result={result} />
+        return <Link to={`/search/${result.id}`}><SearchResult result={result} /></Link>
     })
 
     return (
