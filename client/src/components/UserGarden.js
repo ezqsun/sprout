@@ -8,18 +8,18 @@ export default function UserGarden(props) {
     //     return <Link to={`/user/garden/${collection.id}`}><UserCollectionCard collection={collection} /></Link>
 
     // })
-    let { userCollections, userPlants, updatePlantSchedule, userPlantsTrefleInfo } = props
+    let { userCollections, userPlants, updatePlantSchedule, userPlantsInfo, handleSelectPlantInfo } = props
 
     let plantCards =
         <div className="plant-card--none-found">
             <h2>No plants in your garden yet</h2>
         </div>
-    if ((Array.isArray(userPlants) && userPlants.length) && (Array.isArray(userPlantsTrefleInfo) && userPlantsTrefleInfo.length)) {
+    if ((Array.isArray(userPlants) && userPlants.length) && (Array.isArray(userPlantsInfo) && userPlantsInfo.length)) {
         plantCards = userPlants.map(plant => {
-            let trefleData = userPlantsTrefleInfo.find(treflePlant => {
+            let trefleData = userPlantsInfo.find(treflePlant => {
                 return treflePlant.id === plant.trefleReferenceId
             })
-            return <Link to={`/user/garden/${plant.id}`}><PlantCard plant={plant} key={plant.id} updatePlantSchedule={props.updatePlantSchedule} trefleData={trefleData} /></Link>
+            return <Link to={`/user/garden/${plant.id}`} ><PlantCard plant={plant} key={plant.id} updatePlantSchedule={props.updatePlantSchedule} trefleData={trefleData} /></Link>
         });
     }
 

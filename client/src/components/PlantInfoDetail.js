@@ -1,5 +1,5 @@
 import React from 'react'
-import {formatTitle} from './utilities/formatTitle'
+import {formatTitle} from './utilities/formatString'
 
 
 export default function PlantInfoDetail(props) {

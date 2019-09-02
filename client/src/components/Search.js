@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchResult from './SearchResult'
 
 const searchIcon =
     <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -10,14 +11,21 @@ const searchIcon =
         </g>
     </svg>
 
-export default function Search() {
+export default function Search(props) {
+    let searchCards = props.searchResults.map(result=>{
+        return <SearchResult result={result} />
+    })
+
     return (
         <section className="search">
-            <div className="search-bar">
+            <form className="search-bar" onSubmit={props.handleSearchForPlant} >
                 {searchIcon}
-                <input className="search-bar__input" placeholder="plant name"></input>
-            </div>
+                <input className="search-bar__input" placeholder="plant name" ref={props.searchRef}></input>
+            </form>
+            <div className="search__results">
+                {searchCards}
 
+            </div>
         </section>
     )
 }

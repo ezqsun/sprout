@@ -1,0 +1,21 @@
+import React from 'react'
+import {formatTitle } from './utilities/formatString'
+
+
+export default function SearchResult(props) {
+    let image
+    if('image_url' in props.result){
+        image = <div className="search__results-card__image" 
+        style={{ width: '50vw', height: '50vh', background: `url(${`https://res-4.cloudinary.com/do6bw42am/image/upload/c_scale,f_auto,h_300/v1/${props.result.image_url}`})`, backgroundSize: 'cover' }}></div>
+
+    }
+
+
+    
+    return (
+        <div key={props.result.id} className="search__results-card">
+            <span className="search__results-card__name">{props.result.name || formatTitle(props.result.common_name)}</span>
+            {image}
+        </div>
+    )
+}

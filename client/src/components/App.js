@@ -12,7 +12,7 @@ import UserLocationPage from './UserLocationPage'
 
 
 function App(props) {
-  let { userId, firstName, lastName, userName, email, userCollections, currentCollectionPlants, userPlants, userPlantsTrefleInfo } = props.state
+  let { userId, firstName, lastName, userName, email, userCollections, currentCollectionPlants, userPlants, userPlantsInfo, searchResults, currPlant } = props.state
   return (
     <div className="App">
       <Switch>
@@ -20,12 +20,12 @@ function App(props) {
         <Route path="/login" component={LogIn} />
         <Route exact path="/user" component={User} />
         <Route exact path="/user/garden" render={() =>
-          <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsTrefleInfo={userPlantsTrefleInfo} />} />
+          <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo}/>} />
         <Route path="/register" render={() => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} />} />
         <Route path="/user/garden/:plantId" render={({ match }) =>
-          <PlantInfo plantId={match.params.plantId} userPlants={userPlants} userPlantsTrefleInfo={userPlantsTrefleInfo} />
+          <PlantInfo plantId={match.params.plantId} userPlants={userPlants} userPlantsInfo={userPlantsInfo} currPlant={currPlant} handleSelectPlantInfo={props.handleSelectPlantInfo}/>
         } />
-        <Route exact path="/search" component={Search} />
+        <Route exact path="/search" render={()=><Search handleSearchForPlant={props.handleSearchForPlant} searchResults={searchResults} searchRef={props.searchRef}/>} />
         {/* <Route path="/user/garden/:collectionId" render={({match})=><UserLocationPage collectionId={match} setPlants={props.setPlants} userPlants={userPlants}/>}/> */}
       </Switch>
     </div>

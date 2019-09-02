@@ -2,6 +2,7 @@ import React from 'react'
 import App from './App'
 import axios from 'axios'
 import { formatToday } from './utilities/formatDate'
+import { formatSearchString } from './utilities/formatString'
 
 export default class AppContainer extends React.Component {
     constructor() {
@@ -14,13 +15,17 @@ export default class AppContainer extends React.Component {
             email: '',
             userCollections: [],
             userPlants: [],
-            userPlantsTrefleInfo: [],
+            userPlantsInfo: [],
+            currPlant: [],
             currentCollectionPlants: [],
+            searchResults: [],
+            currSearchResult: {},
             isLoading: true,
         }
     }
 
     registerRef = React.createRef()
+    searchRef = React.createRef()
 
     submitRegister = (event) => {
         event.preventDefault()
@@ -79,10 +84,13 @@ export default class AppContainer extends React.Component {
             .then(response => {
                 this.setState({ userPlants: response.data })
 
-                //sets userPlantsTrefleInfo with array of data for all user plants
+                //sets userPlantsInfo with array of data for all user plants
                 let promises = []
                 response.data.forEach(plant => {
-                    promises.push(axios.get(`/plant/${plant.trefleReferenceId}`))
+                    plant.trefleReferenceId < 100?
+                    promises.push(axios.get(`/plant/harvesthelper/${plant.trefleReferenceId}`))
+                    :
+                    promises.push(axios.get(`/plant/trefle/${plant.trefleReferenceId}`))
                 })
 
                 axios.all(promises)
@@ -91,7 +99,7 @@ export default class AppContainer extends React.Component {
                         results.forEach(response => {
                             trefleData.push(response.data)
                         })
-                        this.setState({ userPlantsTrefleInfo: trefleData })
+                        this.setState({ userPlantsInfo: trefleData })
                     })
                     .catch(error => console.log('error setting user plants trefle info: ' + error))
 
@@ -110,6 +118,38 @@ export default class AppContainer extends React.Component {
             .catch(error => console.log(error))
     }
 
+    handleSearchForPlant = (event) => {
+        event.preventDefault()
+        let q = formatSearchString(this.searchRef.current.value)
+
+        let promises = [axios.get(`/plant/trefle/name/${q}`), axios.get(`/plant/harvesthelper/name/${q}`)]
+        axios.all(promises)
+        .then(axios.spread((trefle, harvesthelper)=>{
+            let newSearchResults = []
+            trefle.data.forEach(result=>{
+                newSearchResults.push(result)
+            })
+            if (harvesthelper.data){
+                newSearchResults.push(harvesthelper.data)
+            }
+            this.setState({searchResults:newSearchResults})
+
+            console.log(newSearchResults)
+        }))
+        .catch(error=> console.log('error searching for plant: ' + error))
+
+        event.target.reset()
+    }
+    handleSelectPlantInfo= (id) =>{
+        let userPlantData = this.state.userPlants.find(plant=>{return plant.id.toString() === id})
+        let plantData = this.state.userPlantsInfo.find(plant=>{return plant.id === userPlantData.trefleReferenceId})
+        console.log(userPlantData, plantData)
+
+        this.setState({currPlant: [userPlantData, plantData]})
+        console.log('call')
+
+    }
+
     componentDidMount() {
         let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
         axios.all(promises)
@@ -118,15 +158,24 @@ export default class AppContainer extends React.Component {
                     isLoading: false,
                 })
             })
-            .catch(error=>console.log('error setting user, user collections, and user plants: ' + error))
+            .catch(error => console.log('error setting user, user collections, and user plants: ' + error))
     }
+
+
     render() {
         console.log(this.state)
 
         return this.state.isLoading ?
             ""
             :
-            <App submitRegister={this.submitRegister} registerRef={this.registerRef} state={this.state} setPlants={this.setPlants} updatePlantSchedule={this.updatePlantSchedule} />
+            <App
+                submitRegister={this.submitRegister}
+                registerRef={this.registerRef}
+                state={this.state} setPlants={this.setPlants}
+                updatePlantSchedule={this.updatePlantSchedule}
+                handleSearchForPlant={this.handleSearchForPlant}
+                handleSelectPlantInfo={this.handleSelectPlantInfo}
+                searchRef={this.searchRef} />
 
     }
 
