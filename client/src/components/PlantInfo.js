@@ -163,7 +163,7 @@ export default class PlantInfo extends React.Component {
             // }
             let modal
             if (this.state.showModal) {
-                modal = <ModalAddPlant />
+                modal = <ModalAddPlant plantName={titleText}/>
 
             }
 

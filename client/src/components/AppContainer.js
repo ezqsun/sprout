@@ -130,8 +130,11 @@ export default class AppContainer extends React.Component {
         axios.all(promises)
         .then(axios.spread((trefle, harvesthelper1, harvesthelper2, harvesthelper3)=>{
             let newSearchResults = []
-            newSearchResults.push(trefle.data)
+            if(trefle.data !== ''){
+                newSearchResults.push(trefle.data)
+            }
             let harvesthelperData = [harvesthelper1, harvesthelper2, harvesthelper3]
+            console.log(harvesthelperData)
             harvesthelperData.forEach(data=>{
                 if (data.data){
                     newSearchResults.push(data.data)

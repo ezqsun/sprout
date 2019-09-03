@@ -34,9 +34,15 @@ router.get('/trefle/name/:name', (req, res) => {
             //     return axios.get(trefleURL(`species/${id}`))
             // })
             // console.log(newPromises)
-            axios.get(trefleURL(`species/${ids[0]}`))
-            .then(response=>{res.json(response.data)})
-            .catch(error=>{res.json('error getting detailed data on the possible query match: ' + error)})
+            if(ids.length !== 0){
+                axios.get(trefleURL(`species/${ids[0]}`))
+                .then(response=>{res.json(response.data)})
+                .catch(error=>{res.json('error getting detailed data on the possible query match: ' + error)})
+            }else{
+                console.log('no trefle data matching this query')
+                res.json('')
+            }
+
             // axios.all(newPromises)
             //     .then(results => {
             //         console.log(results)
