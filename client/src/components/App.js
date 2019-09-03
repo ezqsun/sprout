@@ -8,6 +8,7 @@ import User from './User'
 import Register from './Register'
 import PlantInfo from './PlantInfo'
 import Search from './Search'
+import Navbar from './Navbar'
 import UserLocationPage from './UserLocationPage'
 
 
@@ -15,6 +16,7 @@ function App(props) {
   let { userId, firstName, lastName, userName, email, userCollections, currentCollectionPlants, userPlants, userPlantsInfo, searchResults, currPlant, currSearchResult } = props.state
   return (
     <div className="App">
+      <Navbar/>
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={LogIn} />
