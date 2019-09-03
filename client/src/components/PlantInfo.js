@@ -1,5 +1,6 @@
 import React from 'react'
 import PlantInfoDetail from './PlantInfoDetail'
+import ModalAddPlant from './ModalAddPlant'
 import { Redirect } from "react-router-dom";
 
 export default class PlantInfo extends React.Component {
@@ -9,6 +10,7 @@ export default class PlantInfo extends React.Component {
             isSearchResult: false,
             isLoading: true,
             isRedirecting: false,
+            showModal: false,
         }
     }
     componentDidMount() {
@@ -60,7 +62,7 @@ export default class PlantInfo extends React.Component {
         console.log(this.state)
         console.log(this.props)
 
-        let image_url, titleText, pageContent, plantDetailCards, imagesDisplay, plantData, userPlantData, title
+        let image_url, titleText, pageContent, plantDetailCards, imagesDisplay, plantData, userPlantData, title, addPlantBtn
 
         if (this.state.isLoading) {
             return "Loading plant info"
@@ -72,6 +74,7 @@ export default class PlantInfo extends React.Component {
                 plantData = this.props.searchResults.find(result => {
                     return result.id.toString() === this.props.plantId
                 })
+                addPlantBtn = <button className="plant-info__add-plant" onClick={()=>this.setState({showModal:true})}>+</button>
             } else {
                 let { currPlant } = this.props
                 userPlantData = currPlant[0]
@@ -123,6 +126,7 @@ export default class PlantInfo extends React.Component {
                         <div className="plant-info__content__details">
                             {plantDetailCards}
                         </div>
+                        {addPlantBtn}
                     </div>
 
             }
@@ -152,11 +156,23 @@ export default class PlantInfo extends React.Component {
                             <div className="plant-info__content__details">
                                 {plantDetailCards}
                             </div>
+                            {addPlantBtn}
                         </div>
                     </section>
             }
             // }
-            return pageContent
+            let modal
+            if (this.state.showModal) {
+                modal = <ModalAddPlant />
+
+            }
+
+            return (
+                <div className="plant-info-page">
+                    {pageContent}
+                    {modal}
+                </div>
+            )
 
         }
     }
