@@ -3,6 +3,8 @@ import App from './App'
 import axios from 'axios'
 import { formatToday } from './utilities/formatDate'
 import { formatSearchString } from './utilities/formatString'
+import { isValidDate } from './utilities/isValidDate'
+
 
 export default class AppContainer extends React.Component {
     constructor() {
@@ -167,14 +169,22 @@ export default class AppContainer extends React.Component {
             lastWatered: this.addPlantRef.current['last-watered'].value,
             lastFertilized: this.addPlantRef.current['last-fertilized'].value
         }
-        console.log(newPlant)
-        this.addPlantRef.current.reset()
+        //verify all fields are filled out
+        let validateForm = Object.values(newPlant).filter(value=>{return value === ''})
+        if(!validateForm.length){
+            if(isValidDate(newPlant.lastWatered) && isValidDate(newPlant.lastFertilized)){
+                this.addPlantRef.current.reset()
 
-        axios.post(`/user/${this.state.userId}/add-plant`, newPlant)
-            .then(response => {
-                this.setAllPlants()
-            })
-            .catch(error => console.log('error adding plant: ' + error))
+                axios.post(`/user/${this.state.userId}/add-plant`, newPlant)
+                    .then(response => {this.setAllPlants()})
+                    .catch(error => console.log('error adding plant: ' + error))
+            }else{
+                alert('Please fill in dates in the following format: yyyy-mm-dd')
+            }
+
+        }else{
+            alert('Please fill in all fields!')
+        }
     }
 
     handleCancelForm = (event) => {
