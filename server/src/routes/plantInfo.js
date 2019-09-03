@@ -30,10 +30,7 @@ router.get('/trefle/name/:name', (req, res) => {
                 })
                 // }
             })
-            // let newPromises = ids.map(id => {
-            //     return axios.get(trefleURL(`species/${id}`))
-            // })
-            // console.log(newPromises)
+
             if(ids.length !== 0){
                 axios.get(trefleURL(`species/${ids[0]}`))
                 .then(response=>{res.json(response.data)})
@@ -42,14 +39,6 @@ router.get('/trefle/name/:name', (req, res) => {
                 console.log('no trefle data matching this query')
                 res.json('')
             }
-
-            // axios.all(newPromises)
-            //     .then(results => {
-            //         console.log(results)
-            //         res.json(results)
-
-            //     })
-            //     .catch(error => res.json('error getting detailed data on all possible query matches: ' + error))
         })
         .catch(error => res.json('no valid queries on trefle: ' + error))
 

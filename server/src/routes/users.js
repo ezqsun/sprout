@@ -135,4 +135,19 @@ router.put('/:userId/:plantId', (req, res) => {
         .catch(error=>res.json(`error updating ${req.body.category} to ${req.body.value}: ${error}`))
 })
 
+//add new plant to user garden
+router.post('/:userId/add-plant', (req, res)=>{
+    let newPlant = {
+        userId: req.body.userId,
+        collectionId: req.body.collectionId,
+        trefleReferenceId: req.body.trefleReferenceId,
+        name: req.body.name,
+        lastWatered: req.body.lastWatered,
+        lastFertilized: req.body.lastFertilized,
+    }
+    UserPlant.create(newPlant)
+    .then(plant=>{res.json('successfully created new plant')})
+    .catch(error=>res.json('error creating new plant: ' + error))
+})
+
 module.exports = router

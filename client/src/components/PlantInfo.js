@@ -88,6 +88,7 @@ export default class PlantInfo extends React.Component {
             }
             // if (userPlantData && plantData) {
             console.log(plantData)
+
             //plant data is from Trefle
             if ('common_name' in plantData) {
                 let { common_name } = plantData
@@ -163,7 +164,7 @@ export default class PlantInfo extends React.Component {
             // }
             let modal
             if (this.state.showModal) {
-                modal = <ModalAddPlant plantName={titleText}/>
+                modal = <ModalAddPlant plantName={titleText} addPlantRef={this.props.addPlantRef} handleAddPlant={this.props.handleAddPlant} handleCancelForm={this.props.handleCancelForm} plantData={plantData}/>
 
             }
 

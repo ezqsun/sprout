@@ -26,6 +26,8 @@ export default class AppContainer extends React.Component {
 
     registerRef = React.createRef()
     searchRef = React.createRef()
+    addPlantRef = React.createRef()
+
 
     submitRegister = (event) => {
         event.preventDefault()
@@ -87,10 +89,10 @@ export default class AppContainer extends React.Component {
                 //sets userPlantsInfo with array of data for all user plants
                 let promises = []
                 response.data.forEach(plant => {
-                    plant.trefleReferenceId < 100?
-                    promises.push(axios.get(`/plant/harvesthelper/${plant.trefleReferenceId}`))
-                    :
-                    promises.push(axios.get(`/plant/trefle/${plant.trefleReferenceId}`))
+                    plant.trefleReferenceId < 100 ?
+                        promises.push(axios.get(`/plant/harvesthelper/${plant.trefleReferenceId}`))
+                        :
+                        promises.push(axios.get(`/plant/trefle/${plant.trefleReferenceId}`))
                 })
 
                 axios.all(promises)
@@ -121,39 +123,63 @@ export default class AppContainer extends React.Component {
     handleSearchForPlant = (event) => {
         event.preventDefault()
         let query = this.searchRef.current.value
-        let a = formatSearchString(query+'s')
-        let b = formatSearchString(query+'es')
+        let a = formatSearchString(query + 's')
+        let b = formatSearchString(query + 'es')
         let q = formatSearchString(query)
         console.log(a, b, q)
 
         let promises = [axios.get(`/plant/trefle/name/${q}`), axios.get(`/plant/harvesthelper/name/${q}`), axios.get(`/plant/harvesthelper/name/${a}`), axios.get(`/plant/harvesthelper/name/${b}`)]
         axios.all(promises)
-        .then(axios.spread((trefle, harvesthelper1, harvesthelper2, harvesthelper3)=>{
-            let newSearchResults = []
-            if(trefle.data !== ''){
-                newSearchResults.push(trefle.data)
-            }
-            let harvesthelperData = [harvesthelper1, harvesthelper2, harvesthelper3]
-            console.log(harvesthelperData)
-            harvesthelperData.forEach(data=>{
-                if (data.data){
-                    newSearchResults.push(data.data)
+            .then(axios.spread((trefle, harvesthelper1, harvesthelper2, harvesthelper3) => {
+                let newSearchResults = []
+                if (trefle.data !== '') {
+                    newSearchResults.push(trefle.data)
                 }
-            })
-            this.setState({searchResults:newSearchResults})
-        }))
-        .catch(error=> console.log('error searching for plant: ' + error))
+                let harvesthelperData = [harvesthelper1, harvesthelper2, harvesthelper3]
+                console.log(harvesthelperData)
+                harvesthelperData.forEach(data => {
+                    if (data.data) {
+                        newSearchResults.push(data.data)
+                    }
+                })
+                this.setState({ searchResults: newSearchResults })
+            }))
+            .catch(error => console.log('error searching for plant: ' + error))
 
         event.target.reset()
     }
-    handleSelectPlantInfo= (id) =>{
-        let userPlantData = this.state.userPlants.find(plant=>{return plant.id.toString() === id})
-        let plantData = this.state.userPlantsInfo.find(plant=>{return plant.id === userPlantData.trefleReferenceId})
+    handleSelectPlantInfo = (id) => {
+        let userPlantData = this.state.userPlants.find(plant => { return plant.id.toString() === id })
+        let plantData = this.state.userPlantsInfo.find(plant => { return plant.id === userPlantData.trefleReferenceId })
         console.log(userPlantData, plantData)
 
-        this.setState({currPlant: [userPlantData, plantData]})
+        this.setState({ currPlant: [userPlantData, plantData] })
         console.log('call')
 
+    }
+
+    handleAddPlant = (event, plantDataId) => {
+        event.preventDefault()
+        let newPlant = {
+            name: this.addPlantRef.current['plant-name'].value,
+            collectionId: 1,
+            trefleReferenceId: plantDataId,
+            lastWatered: this.addPlantRef.current['last-watered'].value,
+            lastFertilized: this.addPlantRef.current['last-fertilized'].value
+        }
+        console.log(newPlant)
+        this.addPlantRef.current.reset()
+
+        axios.post(`/user/${this.state.userId}/add-plant`, newPlant)
+            .then(response => {
+                this.setAllPlants()
+            })
+            .catch(error => console.log('error adding plant: ' + error))
+    }
+
+    handleCancelForm = (event) => {
+        event.preventDefault()
+        this.addPlantRef.current.reset()
     }
 
     componentDidMount() {
@@ -181,7 +207,11 @@ export default class AppContainer extends React.Component {
                 updatePlantSchedule={this.updatePlantSchedule}
                 handleSearchForPlant={this.handleSearchForPlant}
                 handleSelectPlantInfo={this.handleSelectPlantInfo}
-                searchRef={this.searchRef} />
+                searchRef={this.searchRef}
+                addPlantRef={this.addPlantRef}
+                handleAddPlant={this.handleAddPlant}
+                handleCancelForm={this.handleCancelForm}
+            />
 
     }
 

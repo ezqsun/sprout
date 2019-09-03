@@ -37,7 +37,10 @@ function App(props) {
             userPlantsInfo={userPlantsInfo}
             currPlant={currPlant}
             handleSelectPlantInfo={props.handleSelectPlantInfo} 
-            searchResults={searchResults}/>
+            searchResults={searchResults}
+            handleAddPlant={props.handleAddPlant}
+            handleCancelForm={props.handleCancelForm}
+            addPlantRef={props.addPlantRef}/>
         } />
         <Route exact path="/search" render={() => <Search handleSearchForPlant={props.handleSearchForPlant} searchResults={searchResults} searchRef={props.searchRef} />} />
         {/* <Route path="/user/garden/:collectionId" render={({match})=><UserLocationPage collectionId={match} setPlants={props.setPlants} userPlants={userPlants}/>}/> */}
