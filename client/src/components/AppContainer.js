@@ -167,7 +167,8 @@ export default class AppContainer extends React.Component {
             collectionId: 1,
             trefleReferenceId: plantDataId,
             lastWatered: this.addPlantRef.current['last-watered'].value,
-            lastFertilized: this.addPlantRef.current['last-fertilized'].value
+            lastFertilized: this.addPlantRef.current['last-fertilized'].value,
+            userId: this.state.userId
         }
         //verify all fields are filled out
         let validateForm = Object.values(newPlant).filter(value=>{return value === ''})

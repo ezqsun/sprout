@@ -28,6 +28,7 @@
       position: relative;
 
 
+
       &--red{
           background-color: rgb(255, 115, 115);
           width: 5vw;
@@ -40,36 +41,26 @@
           position: relative;
 
 
+
       }
 
   }
-
 
   &__hover-text{
     font-size: 0.72em;
     flex-direction: row;
     width: 5vw;
     height: 5vw;
-    color: $white;
+    color: $grey;
     visibility: hidden;
     position: absolute;
     right: 0;
-    top: -2vw;
+    top: 8vw;
     align-items: center;
 
     &:hover{
       color: $teal;
       cursor: pointer;
     }
-  }
-  &:hover .schedule-detail__text{
-    visibility: hidden;
-  }
-  &:hover .schedule-detail__text--red{
-    visibility: hidden;
-  }
-
-  &:hover .schedule-detail__hover-text{
-    visibility: visible;
   }
 }

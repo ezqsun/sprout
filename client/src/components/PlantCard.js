@@ -16,7 +16,7 @@ export default function PlantCard(props) {
                 <div className="plant-card__content-text">
                     <div className="plant-card__content__title">
                         <h2 className="plant-name">{name}</h2>
-                        <span className="plant-common-name">{common_name}</span>
+                        <span className="plant-common-name">{common_name  || props.trefleData.name}</span>
                     </div>
                     <section className="plant-schedule">
                         <PlantScheduleDetail detail="water" content={daysSinceWater} id={id} updatePlantSchedule={props.updatePlantSchedule}/>
