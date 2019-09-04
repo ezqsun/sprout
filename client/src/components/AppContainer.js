@@ -5,6 +5,9 @@ import { formatToday } from './utilities/formatDate'
 import { formatSearchString } from './utilities/formatString'
 import { isValidDate } from './utilities/isValidDate'
 import loading from '../assets/icons/svg/loading.svg'
+import { createHashHistory } from 'history'
+
+const history = createHashHistory()
 
 export default class AppContainer extends React.Component {
     constructor() {
@@ -235,7 +238,7 @@ export default class AppContainer extends React.Component {
     }
 
     
-    handleLogin = (email, password)=>{
+    handleLogin = (email, password, newHistory)=>{
         axios.post('/login', {email: email, password: password})
         .then(response=>{
             this.setState({
@@ -250,7 +253,8 @@ export default class AppContainer extends React.Component {
                     })
                 })
                 .catch(error => console.log('error setting user, user collections, and user plants: ' + error))
-            this.props.history.push("/user/garden");
+                console.log(history)
+                newHistory.push('/user/garden')
 
 
         })
@@ -258,6 +262,8 @@ export default class AppContainer extends React.Component {
     }
 
     componentDidMount() {
+        console.log(history)
+
         let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
         axios.all(promises)
             .then(results => {

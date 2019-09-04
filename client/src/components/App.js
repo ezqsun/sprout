@@ -18,10 +18,14 @@ function App(props) {
     <div className="App">
       <Navbar />
       <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/login" render={() => <LogIn handleLogin={props.handleLogin} /> } />
+        <Route exact path="/" 
+        // component={LandingPage} 
+        render={() => <LogIn handleLogin={props.handleLogin} />}/>
+        <Route path="/login" render={() => <LogIn handleLogin={props.handleLogin} />} />
         <Route exact path="/user" render={() => <User userId={userId} firstName={firstName} lastName={lastName} userName={userName} email={email} handleUpdateUser={props.handleUpdateUser} updateUserRef={props.updateUserRef} />} />
         <Route exact path="/user/garden" render={() =>
+          <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
+        <Route exact path="/login/user/garden" render={() =>
           <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
         <Route path="/register" render={() => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} />} />
         <Route path="/user/garden/:plantId" render={({ match }) =>
@@ -34,6 +38,7 @@ function App(props) {
             handleRemovePlant={props.handleRemovePlant}
           />
         } />
+
         <Route path="/search/:plantId" render={({ match }) =>
           <PlantInfo
             plantId={match.params.plantId}
