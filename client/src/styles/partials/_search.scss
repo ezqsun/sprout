@@ -56,5 +56,9 @@
   &__results{
       width: 100%;
       margin-top: 5vw;
+
+      &__none{
+        text-align: center;
+      }
   }
 }

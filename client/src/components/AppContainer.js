@@ -144,8 +144,12 @@ export default class AppContainer extends React.Component {
                         newSearchResults.push(data.data)
                     }
                 })
-
+                if(!newSearchResults.length){
+                    newSearchResults.push('No matches found')
+                }
                 this.setState({ searchResults: newSearchResults })
+
+
             }))
             .catch(error => console.log('error searching for plant: ' + error))
 

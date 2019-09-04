@@ -13,9 +13,15 @@ const searchIcon =
     </svg>
 
 export default function Search(props) {
-    let searchCards = props.searchResults.map(result => {
-        return <Link to={`/search/${result.id}`}><SearchResult result={result} /></Link>
-    })
+    let searchCards
+    if((typeof props.searchResults[0]) === 'string' ){
+        searchCards = <div className="search__results__none"><span>No matches found</span></div>
+    
+    }else{
+        searchCards = props.searchResults.map(result => {
+            return <Link to={`/search/${result.id}`} key={result.id}><SearchResult result={result} /></Link>})
+    }
+
 
     return (
         <section className="search">

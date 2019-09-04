@@ -11,10 +11,17 @@
 
 
   &__icon {
-    width: 25%;
+    width: 20%;
     height: auto;
-    border-right: 1px solid $white;
-    padding-right: 1.5vw;
+    margin-right: 2vw;
+    // border-right: 1px solid $white;
+    // padding-right: 1.5vw;
+
+    &__separator{
+      border-left: 1px solid $white;
+      padding-left: 3vw;
+
+    }
   }
 
   &__text{
@@ -26,11 +33,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-
-
-
       &--red{
+
           background-color: rgb(255, 115, 115);
           width: 5vw;
           height: 5vw;
@@ -39,9 +43,6 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          position: relative;
-
-
 
       }
 
@@ -49,19 +50,32 @@
 
   &__hover-text{
     font-size: 0.65em;
+    display: flex;
     flex-direction: row;
-    width: 15vw;
-    height: 5vw;
-    color: $grey;
+    color: white;
     visibility: hidden;
-    position: absolute;
+    height: 5.5vw;
     left: -2vw;
-    top: 9vw;
+    top: 7vw;
     align-items: center;
+    animation: fade-in-up 1s ease fowards;
+    width: 100%;
 
-    &:hover{
-      color: $teal;
-      cursor: pointer;
+
+    &-box{
+      margin-left: 6vw;
+      height: 100%;
+
+      &:hover{
+        color: $teal
+        span{
+          color: inherit;
+          transition: 0.4s ease;
+        }
+        cursor: pointer;
+      }
+
     }
+
   }
 }
