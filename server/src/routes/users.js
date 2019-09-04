@@ -6,6 +6,7 @@ const axios = require('axios')
 const trefleURL = path => `https://trefle.io/api/${path}?token=RW5YTWtvRmo5Y0JaSmhKanhOYkRxZz09`
 
 
+
 router.get('/:userId', (req, res) => {
     User.findOne({
         where: {
@@ -57,37 +58,6 @@ router.get('/:userId/plants/:collectionId', (req, res) => {
             res.json('error: ' + error)
         })
 })
-
-//get all plants for a user
-// router.get('/:userId/plants', (req, res) => {
-//     UserPlant.findAll({
-//         where: {
-//             userId: req.params.userId
-//         },
-//         raw: true
-//     })
-//         .then(plants => {
-//             let mainObject = {},
-//                 promises = [];
-
-//             plants.forEach(plant => {
-//                 mainObject[plant.trefleReferenceId] = plant
-//                 promises.push(axios.get(trefleURL(`species/${plant.trefleReferenceId}`)))
-//             });
-//             axios.all(promises)
-//                 .then(results => {
-//                     results.forEach(response => {
-//                         mainObject[response.data.id]['trefleData'] = response.data;
-//                     })
-//                     res.status(200).json(mainObject)
-//                 })
-//                 .catch(error => console.log('error getting trefle data for all user plants: ' + error));
-//         })
-//         .catch(error => {
-//             console.log(error)
-//             res.json('error no plants found for user: ' + error)
-//         })
-// })
 
 router.get('/:userId/plants', (req, res) => {
     UserPlant.findAll({
@@ -172,5 +142,6 @@ router.put('/:userId', (req, res) => {
         .then(response => res.json('successfully updated user'))
         .catch(error => res.json('error updating user: ' + error))
 })
+
 
 module.exports = router
