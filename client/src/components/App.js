@@ -30,7 +30,9 @@ function App(props) {
             userPlants={userPlants}
             userPlantsInfo={userPlantsInfo}
             currPlant={currPlant}
-            handleSelectPlantInfo={props.handleSelectPlantInfo} />
+            handleSelectPlantInfo={props.handleSelectPlantInfo}
+            handleRemovePlant={props.handleRemovePlant}
+            />
         } />
         <Route path="/search/:plantId" render={({ match }) =>
           <PlantInfo

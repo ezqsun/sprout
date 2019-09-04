@@ -195,6 +195,16 @@ export default class AppContainer extends React.Component {
         this.addPlantRef.current.reset()
     }
 
+    handleRemovePlant = (event, plantId) =>{
+        event.preventDefault()
+        axios.delete(`/user/${this.state.userId}/${plantId}`)
+        .then(response=>{
+            console.log(response)
+            this.setAllPlants()
+        })
+        .catch(error=>console.log(error))
+    }
+
     componentDidMount() {
         let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
         axios.all(promises)
@@ -224,6 +234,8 @@ export default class AppContainer extends React.Component {
                 addPlantRef={this.addPlantRef}
                 handleAddPlant={this.handleAddPlant}
                 handleCancelForm={this.handleCancelForm}
+                handleRemovePlant={this.handleRemovePlant}
+
             />
 
     }

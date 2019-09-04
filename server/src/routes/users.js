@@ -150,4 +150,12 @@ router.post('/:userId/add-plant', (req, res)=>{
     .catch(error=>res.json('error creating new plant: ' + error))
 })
 
+router.delete('/:userId/:plantId', (req, res)=>{
+    UserPlant.destroy({
+        where:{id: req.params.plantId}
+    })
+    .then(response=>res.json('successfully removed plant from garden'))
+    .catch(error=>res.json('error removing plant from garden: ' + error))
+})
+
 module.exports = router

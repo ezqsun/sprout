@@ -105,7 +105,10 @@ export default class PlantInfo extends React.Component {
                 let data = currPlant[1]
                 plantData = data
 
-                removePlantBtn = <button className="plant-info__remove-plant">remove from my garden</button>
+                removePlantBtn = <button className="plant-info__remove-plant" onClick={(event)=>{
+                    this.props.handleRemovePlant(event, this.props.plantId)
+                    window.history.back()
+                }}>remove from my garden</button>
                 title =
                     < div className="plant-info__content__title" >
                         {backArrow}
