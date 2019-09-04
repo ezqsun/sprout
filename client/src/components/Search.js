@@ -13,19 +13,20 @@ const searchIcon =
     </svg>
 
 export default function Search(props) {
-    let searchCards = props.searchResults.map(result=>{
+    let searchCards = props.searchResults.map(result => {
         return <Link to={`/search/${result.id}`}><SearchResult result={result} /></Link>
     })
 
     return (
         <section className="search">
-            <form className="search-bar" onSubmit={props.handleSearchForPlant} >
-                {searchIcon}
-                <input className="search-bar__input" placeholder="plant name" ref={props.searchRef}></input>
-            </form>
-            <div className="search__results">
-                {searchCards}
-
+            <div className="search__content">
+                <form className="search-bar" onSubmit={props.handleSearchForPlant} >
+                    {searchIcon}
+                    <input className="search-bar__input" placeholder="plant name" ref={props.searchRef}></input>
+                </form>
+                <div className="search__results">
+                    {searchCards}
+                </div>
             </div>
         </section>
     )

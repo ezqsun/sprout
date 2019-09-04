@@ -33,13 +33,13 @@ export default function PlantScheduleDetail(props) {
     let daysUntil = (props.content >= 7) ?
         <div className="schedule-detail__text--red">
             <span className="schedule-detail__text__days-until">{props.content}</span>
-            <span className="schedule-detail__hover-text" onClick={(event)=>props.updatePlantSchedule(event, props.id, category)}>{hoverText} today</span>
+            <span className="schedule-detail__hover-text" onClick={(event)=>props.updatePlantSchedule(event, props.id, category)}>+ {hoverText} today</span>
 
         </div>
         :
         <div className="schedule-detail__text">
             <span className="schedule-detail__text__days-until">{props.content}</span>
-            <span className="schedule-detail__hover-text" onClick={(event)=>props.updatePlantSchedule(event, props.id, category)}>{hoverText} today</span>
+            <span className="schedule-detail__hover-text" onClick={(event)=>props.updatePlantSchedule(event, props.id, category)}>+ {hoverText} today</span>
         </div>
 
     return (

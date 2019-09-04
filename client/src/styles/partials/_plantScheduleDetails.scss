@@ -3,7 +3,7 @@
 @import "./animations";
 
 .schedule-detail {
-  width: 30%;
+  width: 40%;
   padding: 1vh 1vw;
   display: flex;
   justify-content: space-around;
@@ -11,7 +11,8 @@
 
 
   &__icon {
-    width: 45%;
+    width: 25%;
+    height: auto;
     border-right: 1px solid $white;
     padding-right: 1.5vw;
   }
@@ -47,15 +48,15 @@
   }
 
   &__hover-text{
-    font-size: 0.72em;
+    font-size: 0.65em;
     flex-direction: row;
-    width: 5vw;
+    width: 15vw;
     height: 5vw;
     color: $grey;
     visibility: hidden;
     position: absolute;
-    right: 0;
-    top: 8vw;
+    left: -2vw;
+    top: 9vw;
     align-items: center;
 
     &:hover{

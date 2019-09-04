@@ -1,0 +1,37 @@
+@import './animations';
+@import './colours';
+@import './dimensions';
+
+.search__results-card{
+    width: 100%;
+    height: 25vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: fade-in-up 1s ease forwards;
+
+    &:hover{
+        .search__results-card_name{
+            animation: zoom-in 1s ease forwards;
+        }
+    }
+
+    &__name{
+        word-wrap: normal;
+        z-index: 2;
+        font-size: 5vw;
+        font-weight: 400;
+        color: $white;
+    }
+
+    &__image{
+        width: 100%;
+        height: 100%;
+        border-radius: 3vw;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

@@ -23,6 +23,10 @@ button{
    }
 }
 
+svg{
+   height: 4vw;
+}
+
 @media screen and(min-width: $tablet-min){
    input{
       border: none;

@@ -1,0 +1,22 @@
+@import "./animations";
+@import "./colours";
+@import "./dimensions";
+
+.plant-info__details__category{
+    width: 100%;
+    font-size: 2.3vw;
+    display: flex;
+    flex-direction: row;
+    padding: 2vw;
+
+    &-title{
+        width: 25%;
+        border-right: 1px solid #d1d1d1;
+    }
+
+    &-content{
+        width: 75%;
+        padding-left: 2vw;
+    }
+
+}

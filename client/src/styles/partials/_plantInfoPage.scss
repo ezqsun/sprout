@@ -1,0 +1,69 @@
+@import "./animations";
+@import "./colours";
+@import "./dimensions";
+
+.plant-info-page {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  font-size: 3vw;
+  animation: fade-in 1s ease forwards;
+
+  .plant-info__content {
+    width: $content-width--mobile;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+      margin: 5vw 0;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      font-size: 1.7rem;
+      align-items: center;
+
+      svg:hover path {
+        stroke: $black;
+        transition: 0.3s ease;
+      }
+
+      div {
+        width: 100%;
+        text-align: center;
+
+        &-pet-name {
+          font-weight: 400;
+          // margin-left: 28vw
+        }
+      }
+    }
+    &__image {
+      width: 100%;
+      height: 25vh;
+      border-radius: 1.5vw;
+      margin: 3vw 0;
+    }
+
+    &__details {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  button {
+    margin: 4vh 0;
+    width: 60%;
+    height: 8vw;
+    background-color: $teal;
+    color: $white;
+    border-radius: 5vw;
+
+    &:hover {
+      background-color: white;
+      color: $teal;
+      border: 1.5px solid $teal;
+    }
+  }
+}
