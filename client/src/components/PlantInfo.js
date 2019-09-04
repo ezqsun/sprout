@@ -2,6 +2,9 @@ import React from 'react'
 import PlantInfoDetail from './PlantInfoDetail'
 import ModalAddPlant from './ModalAddPlant'
 import { Redirect } from "react-router-dom";
+import Modal from "react-modal";
+// ReactModal.setAppElement('#modal-add-plant');
+
 let backArrow =
     <svg onClick={() => window.history.back()} width="13px" height="25px" viewBox="0 0 13 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <title>Icon-back-arrow</title>
@@ -70,6 +73,14 @@ export default class PlantInfo extends React.Component {
         }
     }
 
+    handleOpenModal = () => {
+        this.setState({ showModal: true })
+    }
+    handleCloseModal = () => {
+        this.setState({ showModal: false })
+    }
+
+
     render() {
         console.log(this.state)
         console.log(this.props)
@@ -87,6 +98,7 @@ export default class PlantInfo extends React.Component {
                     return result.id.toString() === this.props.plantId
                 })
                 addPlantBtn = <button className="plant-info__add-plant" onClick={() => this.setState({ showModal: true })}>add plant to my garden</button>
+
             } else {
                 let { currPlant } = this.props
                 userPlantData = currPlant[0]
@@ -164,7 +176,7 @@ export default class PlantInfo extends React.Component {
                         image_url = detail[1]
                     }
                 })
-                titleText = userPlantData? userPlantData.name : plantData.name
+                titleText = userPlantData ? userPlantData.name : plantData.name
                 title =
                     <div className="plant-info__content__title">
                         {backArrow}
@@ -194,10 +206,21 @@ export default class PlantInfo extends React.Component {
             return (
                 <div className="plant-info-page">
                     {pageContent}
-                    {modal}
+                    {/* {modal} */}
+                    <Modal
+                        isOpen={this.state.showModal}
+                        contentLabel="add plant modal"
+                        style={{ overlay:{
+                            backgroundColor: '#F2F2F2', border: 'none' }}}
+                        handleCloseModal={this.handleCloseModal}>
+                        {modal}
+                        {/* <button onClick={this.handleCloseModal}>Close Modal</button> */}
+                    </Modal>
+
                 </div>
             )
 
         }
     }
 }
+

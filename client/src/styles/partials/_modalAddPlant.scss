@@ -1,0 +1,57 @@
+@import "./animations";
+@import "./colours";
+@import "./dimensions";
+
+.add-plant{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vw;
+    background-color: white;
+
+    &__content{
+        width: $content-width--mobile;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        &__title{
+            text-align: center;
+            margin: 4vw 0;
+        }
+
+        &__form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: $form-width--mobile;
+
+            input{
+                font-size: 0.8em;
+                margin-bottom: 2vw;
+            }
+
+            label{
+                font-size: 0.6em;
+            }
+
+            button{
+                font-size: 0.8em;
+                width: 100%;
+                margin-top: 1.5vw;
+
+                &:hover{
+                    color: $teal;
+                }
+            }
+        }
+
+
+
+
+    }
+    
+}

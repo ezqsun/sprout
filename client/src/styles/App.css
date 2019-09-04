@@ -209,6 +209,7 @@
 
 input {
   border: none;
+  width: 100%;
   height: 7vh;
   border-radius: 7vw;
   text-indent: 7vw;
@@ -1179,6 +1180,113 @@ svg {
   position: absolute;
   left: 0;
   top: 0;
+}
+
+@keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(2vw);
+            transform: translateY(2vw);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in {
+  to {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+}
+
+.add-plant {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3vw;
+  background-color: white;
+}
+
+.add-plant__content {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.add-plant__content__title {
+  text-align: center;
+  margin: 4vw 0;
+}
+
+.add-plant__content__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+}
+
+.add-plant__content__form input {
+  font-size: 0.8em;
+  margin-bottom: 2vw;
+}
+
+.add-plant__content__form label {
+  font-size: 0.6em;
+}
+
+.add-plant__content__form button {
+  font-size: 0.8em;
+  width: 100%;
+  margin-top: 1.5vw;
+}
+
+.add-plant__content__form button:hover {
+  color: #65CCB8;
 }
 
 * {

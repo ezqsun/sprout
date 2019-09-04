@@ -144,6 +144,7 @@ export default class AppContainer extends React.Component {
                         newSearchResults.push(data.data)
                     }
                 })
+
                 this.setState({ searchResults: newSearchResults })
             }))
             .catch(error => console.log('error searching for plant: ' + error))
@@ -180,6 +181,7 @@ export default class AppContainer extends React.Component {
                     .then(response => {this.setAllPlants()})
                     .catch(error => console.log('error adding plant: ' + error))
             }else{
+
                 alert('Please fill in dates in the following format: yyyy-mm-dd')
             }
 
