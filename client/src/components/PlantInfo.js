@@ -76,8 +76,14 @@ export default class PlantInfo extends React.Component {
     handleOpenModal = () => {
         this.setState({ showModal: true })
     }
-    handleCloseModal = () => {
+    handleCloseModal = (event) => {
         this.setState({ showModal: false })
+    }
+    redirectPage = (event) =>{
+        event.preventDefault()
+
+        console.log('2')
+        window.history.back()
     }
 
 
@@ -203,7 +209,6 @@ export default class PlantInfo extends React.Component {
             let modal
             if (this.state.showModal) {
                 modal = <ModalAddPlant plantName={titleText} addPlantRef={this.props.addPlantRef} handleAddPlant={this.props.handleAddPlant} handleCancelForm={this.props.handleCancelForm} plantData={plantData} />
-
             }
 
             return (
@@ -215,7 +220,8 @@ export default class PlantInfo extends React.Component {
                         contentLabel="add plant modal"
                         style={{ overlay:{
                             backgroundColor: '#F2F2F2', border: 'none' }}}
-                        handleCloseModal={this.handleCloseModal}>
+                        handleCloseModal={this.handleCloseModal}
+                        redirectPage={this.redirectPage}>
                         {modal}
                         {/* <button onClick={this.handleCloseModal}>Close Modal</button> */}
                     </Modal>

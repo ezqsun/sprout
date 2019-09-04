@@ -25,8 +25,8 @@ function App(props) {
         <Route exact path="/user" render={() => <User userId={userId} firstName={firstName} lastName={lastName} userName={userName} email={email} handleUpdateUser={props.handleUpdateUser} updateUserRef={props.updateUserRef} />} />
         <Route exact path="/user/garden" render={() =>
           <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
-        <Route exact path="/login/user/garden" render={() =>
-          <UserGarden history={props.history} userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
+        <Route exact path="/login/user/garden" render={(p) =>
+          <UserGarden history={p.history} userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
         <Route path="/register" render={(p) => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} history={p.history}/>} />
         <Route path="/user/garden/:plantId" render={({ match }) =>
           <PlantInfo
@@ -39,9 +39,9 @@ function App(props) {
           />
         } />
 
-        <Route path="/search/:plantId" render={({ match }) =>
+        <Route path="/search/:plantId" render={p =>
           <PlantInfo
-            plantId={match.params.plantId}
+            plantId={p.match.params.plantId}
             userPlants={userPlants}
             userPlantsInfo={userPlantsInfo}
             currPlant={currPlant}
@@ -49,7 +49,8 @@ function App(props) {
             searchResults={searchResults}
             handleAddPlant={props.handleAddPlant}
             handleCancelForm={props.handleCancelForm}
-            addPlantRef={props.addPlantRef} />
+            addPlantRef={props.addPlantRef} 
+            history={p.history}/>
         } />
         <Route exact path="/search" render={() => <Search handleSearchForPlant={props.handleSearchForPlant} searchResults={searchResults} searchRef={props.searchRef} />} />
         {/* <Route path="/user/garden/:collectionId" render={({match})=><UserLocationPage collectionId={match} setPlants={props.setPlants} userPlants={userPlants}/>}/> */}
