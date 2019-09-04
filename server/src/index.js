@@ -95,16 +95,6 @@ app.post('/login', async function (req, res, next) {
                 res.status(401).json({ msg: 'Password is incorrect' })
             }
         }
-
-        // else if (user.password === password) {
-        //     // from now on we’ll identify the user by the id and the id is
-        //     // the only personalized value that goes into our token
-        //     let payload = { id: user.id };
-        //     let token = jwt.sign(payload, jwtOptions.secretOrKey);
-        //     res.json({ msg: 'ok', token: token });
-        // } else {
-        //     res.status(401).json({ msg: 'Password is incorrect' });
-        // }
     }
 })
 
@@ -113,7 +103,7 @@ app.post('/login', async function (req, res, next) {
 // app.use('/user', middleware.verifyToken, users)
 
 app.use(passport.initialize());
-app.use('/plant', passport.authenticate('jwt', { session: false }), plantInfo)
+app.use('/plant', plantInfo)
 app.use('/user', passport.authenticate('jwt', { session: false }), users)
 // app.use('/login', login)
 // app.use('/register', register)

@@ -23,15 +23,16 @@ export default class AppContainer extends React.Component {
             searchResults: [],
             currSearchResult: {},
             isLoading: true,
+            token: "",
+            axiosHeader: {}
         }
     }
+
 
     registerRef = React.createRef()
     searchRef = React.createRef()
     addPlantRef = React.createRef()
     updateUserRef = React.createRef()
-
-
 
     submitRegister = (event) => {
         event.preventDefault()
@@ -43,7 +44,7 @@ export default class AppContainer extends React.Component {
             password: this.registerRef.current.password,
         }
 
-        axios.post('/register', userData)
+        axios.post('/register', userData, this.state.axiosHeader)
             .then(response => {
                 console.log(response.data)
             })
@@ -51,7 +52,7 @@ export default class AppContainer extends React.Component {
     }
 
     setUser = () => {
-        axios.get(`/user/${this.state.userId}`)
+        axios.get(`/user/${this.state.userId}`, this.state.axiosHeader)
             .then(response => {
                 let { userId, firstName, lastName, userName, email } = response.data
                 this.setState({
@@ -66,7 +67,7 @@ export default class AppContainer extends React.Component {
     }
 
     setCollection = () => {
-        axios.get(`/user/${this.state.userId}/garden`)
+        axios.get(`/user/${this.state.userId}/garden`, this.state.axiosHeader)
             .then(response => {
                 this.setState({
                     userCollections: response.data
@@ -86,7 +87,7 @@ export default class AppContainer extends React.Component {
     // }
 
     setAllPlants = () => {
-        axios.get(`/user/${this.state.userId}/plants`)
+        axios.get(`/user/${this.state.userId}/plants`, this.state.axiosHeader)
             .then(response => {
                 this.setState({ userPlants: response.data })
 
@@ -117,7 +118,7 @@ export default class AppContainer extends React.Component {
         axios.put(`/user/${this.state.userId}/${plantId}`, {
             value: formatToday(),
             category: category
-        })
+        }, this.state.axiosHeader)
             .then(response => {
                 this.setAllPlants()
             })
@@ -183,7 +184,7 @@ export default class AppContainer extends React.Component {
             if(isValidDate(newPlant.lastWatered) && isValidDate(newPlant.lastFertilized)){
                 this.addPlantRef.current.reset()
 
-                axios.post(`/user/${this.state.userId}/add-plant`, newPlant)
+                axios.post(`/user/${this.state.userId}/add-plant`, newPlant, this.state.axiosHeader)
                     .then(response => {this.setAllPlants()})
                     .catch(error => console.log('error adding plant: ' + error))
             }else{
@@ -203,7 +204,7 @@ export default class AppContainer extends React.Component {
 
     handleRemovePlant = (event, plantId) =>{
         event.preventDefault()
-        axios.delete(`/user/${this.state.userId}/${plantId}`)
+        axios.delete(`/user/${this.state.userId}/${plantId}`, this.state.axiosHeader)
         .then(response=>{
             console.log(response)
             this.setAllPlants()
@@ -225,13 +226,35 @@ export default class AppContainer extends React.Component {
                 newInfo[key] = this.state[key]
             }
         })
-        axios.put(`/user/${this.state.userId}`, newInfo)
+        axios.put(`/user/${this.state.userId}`, newInfo, this.state.axiosHeader)
         .then(response=>{
             console.log(response)
             this.setUser()
         })
         .catch(error=>console.log(error))
+    }
 
+    
+    handleLogin = (email, password)=>{
+        axios.post('/login', {email: email, password: password})
+        .then(response=>{
+            this.setState({
+                token: response.data.token,
+                axiosHeader: {'headers':{'Authorization': `Bearer ${response.data.token}`}}
+            })
+            let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
+            axios.all(promises)
+                .then(results => {
+                    this.setState({
+                        isLoading: false,
+                    })
+                })
+                .catch(error => console.log('error setting user, user collections, and user plants: ' + error))
+            this.props.history.push("/user/garden");
+
+
+        })
+        .catch(error=>"error logging in: " + error)
     }
 
     componentDidMount() {
@@ -266,6 +289,7 @@ export default class AppContainer extends React.Component {
                 handleRemovePlant={this.handleRemovePlant}
                 handleUpdateUser={this.handleUpdateUser}
                 updateUserRef={this.updateUserRef}
+                handleLogin={this.handleLogin}
 
             />
 
