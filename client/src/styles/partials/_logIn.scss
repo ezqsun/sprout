@@ -1,5 +1,7 @@
 @import './colours';
 @import './dimensions';
+@import './animations';
+
 
 .login{
     width: 100vw;
@@ -7,6 +9,7 @@
     display: flex;
     align-items: center;
     font-size: 3vw;
+    animation: fade-in 2s ease forwards;
 
     &__content{
         width: 100%;

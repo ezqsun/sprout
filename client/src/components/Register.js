@@ -8,7 +8,7 @@ export default function Register(props) {
                 <h1 className="signup__title">
                     Create an account
                 </h1>
-                <form className="signup__form" onSubmit={props.submitRegister} signUpRef={props.registerRef}>
+                <form className="signup__form" onSubmit={props.submitRegister} ref={props.registerRef}>
                     <input className="signup__form__input" name="firstName" placeholder="first name"></input>
                     <input className="signup__form__input" name="lastName" placeholder="last name"></input>
                     <input className="signup__form__input" name="email" placeholder="email"></input>

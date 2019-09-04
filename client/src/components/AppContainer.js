@@ -40,16 +40,17 @@ export default class AppContainer extends React.Component {
     submitRegister = (event) => {
         event.preventDefault()
         let userData = {
-            firstName: this.registerRef.current.firstName,
-            lastName: this.registerRef.current.lastName,
-            userName: this.registerRef.current.userName,
-            email: this.registerRef.current.email,
-            password: this.registerRef.current.password,
+            firstName: this.registerRef.current.firstName.value,
+            lastName: this.registerRef.current.lastName.value,
+            userName: this.registerRef.current.userName.value,
+            email: this.registerRef.current.email.value,
+            password: this.registerRef.current.password.value,
         }
 
         axios.post('/register', userData, this.state.axiosHeader)
             .then(response => {
                 console.log(response.data)
+                this.handleLogin(userData.email, userData.password, history)
             })
             .catch(error => console.log(error))
     }
@@ -150,7 +151,7 @@ export default class AppContainer extends React.Component {
                         newSearchResults.push(data.data)
                     }
                 })
-                if(!newSearchResults.length){
+                if (!newSearchResults.length) {
                     newSearchResults.push('No matches found')
                 }
                 this.setState({ searchResults: newSearchResults })
@@ -182,20 +183,20 @@ export default class AppContainer extends React.Component {
             userId: this.state.userId
         }
         //verify all fields are filled out
-        let validateForm = Object.values(newPlant).filter(value=>{return value === ''})
-        if(!validateForm.length){
-            if(isValidDate(newPlant.lastWatered) && isValidDate(newPlant.lastFertilized)){
+        let validateForm = Object.values(newPlant).filter(value => { return value === '' })
+        if (!validateForm.length) {
+            if (isValidDate(newPlant.lastWatered) && isValidDate(newPlant.lastFertilized)) {
                 this.addPlantRef.current.reset()
 
                 axios.post(`/user/${this.state.userId}/add-plant`, newPlant, this.state.axiosHeader)
-                    .then(response => {this.setAllPlants()})
+                    .then(response => { this.setAllPlants() })
                     .catch(error => console.log('error adding plant: ' + error))
-            }else{
+            } else {
 
                 alert('Please fill in dates in the following format: yyyy-mm-dd')
             }
 
-        }else{
+        } else {
             alert('Please fill in all fields!')
         }
     }
@@ -205,14 +206,14 @@ export default class AppContainer extends React.Component {
         this.addPlantRef.current.reset()
     }
 
-    handleRemovePlant = (event, plantId) =>{
+    handleRemovePlant = (event, plantId) => {
         event.preventDefault()
         axios.delete(`/user/${this.state.userId}/${plantId}`, this.state.axiosHeader)
-        .then(response=>{
-            console.log(response)
-            this.setAllPlants()
-        })
-        .catch(error=>console.log(error))
+            .then(response => {
+                console.log(response)
+                this.setAllPlants()
+            })
+            .catch(error => console.log(error))
     }
 
     handleUpdateUser = (event, info) => {
@@ -224,41 +225,44 @@ export default class AppContainer extends React.Component {
             email: info.email
         }
 
-        Object.entries(newInfo).map(([key, value])=>{
-            if(value ===''){
+        Object.entries(newInfo).map(([key, value]) => {
+            if (value === '') {
                 newInfo[key] = this.state[key]
             }
         })
         axios.put(`/user/${this.state.userId}`, newInfo, this.state.axiosHeader)
-        .then(response=>{
-            console.log(response)
-            this.setUser()
-        })
-        .catch(error=>console.log(error))
+            .then(response => {
+                console.log(response)
+                this.setUser()
+            })
+            .catch(error => console.log(error))
     }
 
-    
-    handleLogin = (email, password, newHistory)=>{
-        axios.post('/login', {email: email, password: password})
-        .then(response=>{
-            this.setState({
-                token: response.data.token,
-                axiosHeader: {'headers':{'Authorization': `Bearer ${response.data.token}`}}
-            })
-            let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
-            axios.all(promises)
-                .then(results => {
-                    this.setState({
-                        isLoading: false,
-                    })
+
+    handleLogin = (email, password, newHistory) => {
+        axios.post('/login', { email: email, password: password })
+            .then(response => {
+                this.setState({
+                    token: response.data.token,
+                    axiosHeader: {
+                        'headers': { 'Authorization': `Bearer ${response.data.token}` }
+                    },
+                    userId: response.data.userId
                 })
-                .catch(error => console.log('error setting user, user collections, and user plants: ' + error))
+                let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
+                axios.all(promises)
+                    .then(results => {
+                        this.setState({
+                            isLoading: false,
+                        })
+                    })
+                    .catch(error => console.log('error setting user, user collections, and user plants: ' + error))
                 console.log(history)
                 newHistory.push('/user/garden')
 
 
-        })
-        .catch(error=>"error logging in: " + error)
+            })
+            .catch(error => "error logging in: " + error)
     }
 
     componentDidMount() {

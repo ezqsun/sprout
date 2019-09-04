@@ -146,6 +146,54 @@
   }
 }
 
+@keyframes text-to-green {
+  to {
+    color: #65CCB8;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(2vw);
+            transform: translateY(2vw);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-2vw);
+            transform: translateY(-2vw);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in {
+  to {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+}
+
 .login {
   width: 100vw;
   height: 85vh;
@@ -156,6 +204,8 @@
       -ms-flex-align: center;
           align-items: center;
   font-size: 3vw;
+  -webkit-animation: fade-in 2s ease forwards;
+          animation: fade-in 2s ease forwards;
 }
 
 .login__content {
@@ -332,7 +382,7 @@ svg {
 }
 
 .signup__content {
-  margin-top: 15vh;
+  margin-top: 6vw;
   width: 80%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -365,7 +415,7 @@ svg {
 }
 
 .signup__form__input {
-  margin: 5vh 0;
+  margin: 2.5vw 0;
 }
 
 .signup__submit:hover {
