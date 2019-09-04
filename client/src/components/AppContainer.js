@@ -4,7 +4,7 @@ import axios from 'axios'
 import { formatToday } from './utilities/formatDate'
 import { formatSearchString } from './utilities/formatString'
 import { isValidDate } from './utilities/isValidDate'
-
+import loading from '../assets/icons/svg/loading.svg'
 
 export default class AppContainer extends React.Component {
     constructor() {
@@ -29,6 +29,8 @@ export default class AppContainer extends React.Component {
     registerRef = React.createRef()
     searchRef = React.createRef()
     addPlantRef = React.createRef()
+    updateUserRef = React.createRef()
+
 
 
     submitRegister = (event) => {
@@ -209,6 +211,29 @@ export default class AppContainer extends React.Component {
         .catch(error=>console.log(error))
     }
 
+    handleUpdateUser = (event, info) => {
+        event.preventDefault()
+        let newInfo = {
+            firstName: info.firstName,
+            lastName: info.lastName,
+            userName: info.userName,
+            email: info.email
+        }
+
+        Object.entries(newInfo).map(([key, value])=>{
+            if(value ===''){
+                newInfo[key] = this.state[key]
+            }
+        })
+        axios.put(`/user/${this.state.userId}`, newInfo)
+        .then(response=>{
+            console.log(response)
+            this.setUser()
+        })
+        .catch(error=>console.log(error))
+
+    }
+
     componentDidMount() {
         let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
         axios.all(promises)
@@ -239,6 +264,8 @@ export default class AppContainer extends React.Component {
                 handleAddPlant={this.handleAddPlant}
                 handleCancelForm={this.handleCancelForm}
                 handleRemovePlant={this.handleRemovePlant}
+                handleUpdateUser={this.handleUpdateUser}
+                updateUserRef={this.updateUserRef}
 
             />
 

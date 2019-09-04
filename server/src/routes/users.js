@@ -132,11 +132,11 @@ router.put('/:userId/:plantId', (req, res) => {
         .then(plant => {
             res.status(200).json(`successfully updated ${req.body.category} to ${req.body.value} for ${req.params.userId}'s plant #${req.params.plantId}`)
         })
-        .catch(error=>res.json(`error updating ${req.body.category} to ${req.body.value}: ${error}`))
+        .catch(error => res.json(`error updating ${req.body.category} to ${req.body.value}: ${error}`))
 })
 
 //add new plant to user garden
-router.post('/:userId/add-plant', (req, res)=>{
+router.post('/:userId/add-plant', (req, res) => {
     let newPlant = {
         userId: req.body.userId,
         collectionId: req.body.collectionId,
@@ -146,16 +146,31 @@ router.post('/:userId/add-plant', (req, res)=>{
         lastFertilized: req.body.lastFertilized,
     }
     UserPlant.create(newPlant)
-    .then(plant=>{res.json('successfully created new plant')})
-    .catch(error=>res.json('error creating new plant: ' + error))
+        .then(plant => { res.json('successfully created new plant') })
+        .catch(error => res.json('error creating new plant: ' + error))
 })
 
-router.delete('/:userId/:plantId', (req, res)=>{
+router.delete('/:userId/:plantId', (req, res) => {
     UserPlant.destroy({
-        where:{id: req.params.plantId}
+        where: { id: req.params.plantId }
     })
-    .then(response=>res.json('successfully removed plant from garden'))
-    .catch(error=>res.json('error removing plant from garden: ' + error))
+        .then(response => res.json('successfully removed plant from garden'))
+        .catch(error => res.json('error removing plant from garden: ' + error))
+})
+
+router.put('/:userId', (req, res) => {
+    User.update(
+        {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            userName: req.body.userName,
+            email: req.body.email,
+        },
+        {
+            where: { id: req.params.userId }
+        })
+        .then(response => res.json('successfully updated user'))
+        .catch(error => res.json('error updating user: ' + error))
 })
 
 module.exports = router

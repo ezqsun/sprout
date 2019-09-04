@@ -57,7 +57,7 @@
     height: 5.5vw;
     left: -2vw;
     top: 7vw;
-    align-items: center;
+    align-items: flex-end;
     animation: fade-in-up 1s ease fowards;
     width: 100%;
 
@@ -67,9 +67,8 @@
       height: 100%;
 
       &:hover{
-        color: $teal
         span{
-          color: inherit;
+          color: $teal;
           transition: 0.4s ease;
         }
         cursor: pointer;

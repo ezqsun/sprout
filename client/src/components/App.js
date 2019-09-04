@@ -20,7 +20,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={LogIn} />
-        <Route exact path="/user" component={User} />
+        <Route exact path="/user" render={()=> <User userId={userId} firstName={firstName} lastName={lastName} userName={userName} email={email} handleUpdateUser={props.handleUpdateUser} updateUserRef={props.updateUserRef} />} />
         <Route exact path="/user/garden" render={() =>
           <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
         <Route path="/register" render={() => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} />} />

@@ -6,7 +6,8 @@ export default function Navbar() {
         <section className="navbar">
             <div className="navbar__content">
                 <div className="navbar__content__logo">
-                    <Link to="/">sprout</Link>
+                    sprout
+                    {/* <Link to="/">sprout</Link> */}
                 </div>
                 <div className="navbar__content__links">
                     <Link to="/user/garden"><div className="navbar__content__links__link">garden</div></Link>
