@@ -239,7 +239,7 @@ export default class AppContainer extends React.Component {
     }
 
 
-    handleLogin = (email, password, newHistory) => {
+    handleLogin = (email, password) => {
         axios.post('/login', { email: email, password: password })
             .then(response => {
                 this.setState({
@@ -257,9 +257,6 @@ export default class AppContainer extends React.Component {
                         })
                     })
                     .catch(error => console.log('error setting user, user collections, and user plants: ' + error))
-                console.log(history)
-                newHistory.push('/user/garden')
-
 
             })
             .catch(error => "error logging in: " + error)
@@ -300,7 +297,7 @@ export default class AppContainer extends React.Component {
                 handleUpdateUser={this.handleUpdateUser}
                 updateUserRef={this.updateUserRef}
                 handleLogin={this.handleLogin}
-
+                history={history}
             />
 
     }

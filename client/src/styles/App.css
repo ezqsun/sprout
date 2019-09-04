@@ -266,6 +266,11 @@
 .login__section__sign-in {
   -ms-flex-item-align: end;
       align-self: flex-end;
+  cursor: pointer;
+}
+
+.login__section__create-account {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
@@ -823,7 +828,7 @@ svg {
 }
 
 .schedule-detail__hover-text-box:hover span {
-  color: #65CCB8;
+  color: #57BA98;
   -webkit-transition: 0.4s ease;
   transition: 0.4s ease;
 }
@@ -884,6 +889,7 @@ svg {
   width: 100vw;
   font-size: 4vw;
   margin-bottom: 3vh;
+  background-color: #65CCB8;
 }
 
 .navbar__content {

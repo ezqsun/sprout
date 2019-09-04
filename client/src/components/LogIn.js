@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { createHashHistory } from 'history'
 import sprout from '../assets/icons/svg/loading.svg'
 
-
-const history = createHashHistory()
 export default class LogIn extends React.Component {
     constructor(props) {
         super(props)
@@ -21,6 +18,7 @@ export default class LogIn extends React.Component {
     }
 
     render() {
+        console.log(this.props.history)
         return (
             <article className="login">
                 <div className="login__background-top"></div>
@@ -41,7 +39,10 @@ export default class LogIn extends React.Component {
                             </form>
 
                             {/* <div className="login__section__sign-in"><Link to="/user/garden"><span>Sign In</span></Link></div> */}
-                            <div className="login__section__sign-in" onClick={() => this.props.handleLogin(this.state.email, this.state.password, history)}><span>Sign In</span></div>
+                            <div className="login__section__sign-in" onClick={() => {
+                                this.props.handleLogin(this.state.email, this.state.password)
+                                this.props.history.push('/user/garden')
+                            }}><span>Sign In</span></div>
                             <div className="login__section__create-account"><Link to="/register"><span>Create an account</span></Link></div>
                         </section>
                     </section>

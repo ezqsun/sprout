@@ -54,6 +54,12 @@
 
         &__sign-in{
             align-self: flex-end;
+            cursor: pointer;
+        }
+
+        &__create-account{
+            cursor: pointer;
+
         }
     }
 

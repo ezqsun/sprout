@@ -20,14 +20,14 @@ function App(props) {
       <Switch>
         <Route exact path="/" 
         // component={LandingPage} 
-        render={() => <LogIn handleLogin={props.handleLogin} />}/>
-        <Route path="/login" render={() => <LogIn handleLogin={props.handleLogin} />} />
+        render={(p) => <LogIn handleLogin={props.handleLogin} history={p.history}/>}/>
+        <Route path="/login" render={(p) => <LogIn handleLogin={props.handleLogin} history={p.history}/>} />
         <Route exact path="/user" render={() => <User userId={userId} firstName={firstName} lastName={lastName} userName={userName} email={email} handleUpdateUser={props.handleUpdateUser} updateUserRef={props.updateUserRef} />} />
         <Route exact path="/user/garden" render={() =>
           <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
         <Route exact path="/login/user/garden" render={() =>
-          <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
-        <Route path="/register" render={() => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} />} />
+          <UserGarden history={props.history} userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
+        <Route path="/register" render={(p) => <Register submitRegister={props.submitRegister} registerRef={props.registerRef} history={p.history}/>} />
         <Route path="/user/garden/:plantId" render={({ match }) =>
           <PlantInfo
             plantId={match.params.plantId}
