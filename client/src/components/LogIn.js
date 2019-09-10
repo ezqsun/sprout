@@ -18,7 +18,6 @@ export default class LogIn extends React.Component {
     }
 
     render() {
-        console.log(this.props.history)
         return (
             <article className="login">
                 <div className="login__background-top"></div>

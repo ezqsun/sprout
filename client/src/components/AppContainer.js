@@ -46,9 +46,9 @@ export default class AppContainer extends React.Component {
             password: this.registerRef.current.password.value,
         }
 
-        axios.post('/register', userData, {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.post('/register', userData)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 this.handleLogin(userData.email, userData.password)
             })
             .catch(error => console.log(error))
@@ -124,7 +124,7 @@ export default class AppContainer extends React.Component {
         let a = formatSearchString(query + 's')
         let b = formatSearchString(query + 'es')
         let q = formatSearchString(query)
-        console.log(a, b, q)
+        // console.log(a, b, q)
 
         let promises = [axios.get(`/plant/trefle/name/${q}`), axios.get(`/plant/harvesthelper/name/${q}`), axios.get(`/plant/harvesthelper/name/${a}`), axios.get(`/plant/harvesthelper/name/${b}`)]
         axios.all(promises)
@@ -134,7 +134,7 @@ export default class AppContainer extends React.Component {
                     newSearchResults.push(trefle.data)
                 }
                 let harvesthelperData = [harvesthelper1, harvesthelper2, harvesthelper3]
-                console.log(harvesthelperData)
+                // console.log(harvesthelperData)
                 harvesthelperData.forEach(data => {
                     if (data.data) {
                         newSearchResults.push(data.data)
@@ -154,15 +154,13 @@ export default class AppContainer extends React.Component {
     handleSelectPlantInfo = (id) => {
         let userPlantData = this.state.userPlants.find(plant => { return plant.id.toString() === id })
         let plantData = this.state.userPlantsInfo.find(plant => { return plant.id === userPlantData.trefleReferenceId })
-        console.log(userPlantData, plantData)
+        // console.log(userPlantData, plantData)
 
         this.setState({ currPlant: [userPlantData, plantData] })
-        console.log('call')
 
     }
 
     handleAddPlant = (event, plantDataId) => {
-        console.log('1')
         event.preventDefault()
         let newPlant = {
             name: this.addPlantRef.current['plant-name'].value,
@@ -191,9 +189,7 @@ export default class AppContainer extends React.Component {
                                     promises.push(axios.get(`/plant/harvesthelper/${plant.trefleReferenceId}`))
                                     :
                                     promises.push(axios.get(`/plant/trefle/${plant.trefleReferenceId}`))
-                            })
-                            console.log(promises)
-            
+                            })            
                             axios.all(promises)
                                 .then(results => {
                                     let trefleData = []
@@ -228,7 +224,7 @@ export default class AppContainer extends React.Component {
         event.preventDefault()
         axios.delete(`/user/${this.state.userId}/${plantId}`,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 this.setAllPlants()
             })
             .catch(error => console.log(error))
@@ -260,11 +256,12 @@ export default class AppContainer extends React.Component {
     handleLogin = (email, password) => {
         axios.post('/login', { email: email, password: password })
             .then(response => {
+                sessionStorage.setItem('token', response.data.token)
+                console.log(response.data.token)
                 this.setState({
                     userId: response.data.userId,
                     isLoggedIn: true,
                 })
-                sessionStorage.setItem('token', response.data.token)
                 let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
                 axios.all(promises)
                     .then(results => {

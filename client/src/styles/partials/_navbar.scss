@@ -20,6 +20,7 @@
 
         &__logo{
             display: flex;
+            margin-top: 4vh;
             justify-content: center;
             align-items: center;
             height: 50%;
@@ -49,7 +50,7 @@
 @media screen and(min-width: $tablet-min){
     .navbar{
         height: 10vh;
-        font-size: 1.7vw;
+        font-size: 1.2vw;
         margin-bottom: 2vh;
         display: flex;
         align-items: flex-end;
@@ -64,6 +65,7 @@
     
             &__logo{
                 display: flex;
+                margin-top: 0;
                 justify-content: center;
                 align-items: center;
                 height: auto;

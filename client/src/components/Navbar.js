@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import leafLogo from '../assets/icons/png/leaf.png'
 
 export default function Navbar(props) {
     return props.isLoggedIn || props.userName.length ?

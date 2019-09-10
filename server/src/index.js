@@ -78,7 +78,6 @@ app.get('/users', function (req, res) {
 app.post('/login', async function (req, res, next) {
     let { email, password } = req.body
     if (email && password) {
-        // we get the user with the name and save the resolved promise returned
         let user = await getUser({ email })
         console.log(user)
         if (!user) {
@@ -86,8 +85,6 @@ app.post('/login', async function (req, res, next) {
         }else{
             let match = await bcrypt.compare(password, user.password)
             if (match) {
-                // from now on we’ll identify the user by the id and the id is
-                // the only personalized value that goes into our token
                 let payload = { id: user.id }
                 let token = jwt.sign(payload, jwtOptions.secretOrKey)
                 res.json({ msg: 'ok', token: token, userId: user.id })

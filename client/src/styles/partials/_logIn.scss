@@ -4,7 +4,7 @@
 
 .login {
   width: 100vw;
-  height: 85vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   font-size: 3vw;
@@ -56,22 +56,25 @@
 
 @media screen and(min-width: $tablet-min) {
   .login {
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     justify-content: center;
 
     &__content {
       width: $content-width--tablet;
-      height: 50%;
+      height: 55%;
     }
 
     &__section {
       &__entry {
         width: $form-width--tablet;
 
-        form {
-          height: 85%;
+        form{
+          input{
+            height: 25%;
+          }
         }
       }
     }
   }
 }
+
