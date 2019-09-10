@@ -2,48 +2,57 @@
 @import "./dimensions";
 @import "./animations";
 
-.user-page{
+.user-page {
+  display: flex;
+  justify-content: center;
+
+  &__content {
+    width: $content-width--mobile;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 
-    &__content{
-        width: $content-width--mobile;
-        display: flex;
-        flex-direction: column;
-
-        [contenteditable]{
-            &:focus {
-                outline: 1px solid $green;
-            }
-
-        }
-
-        button{
-            display: flex;
-            margin: 5vw 0;
-            font-size: 0.8em;
-            width: 100%;
-            justify-content: center;
-            background-color: $teal;
-            height: 7vh;
-            border-radius: 7vw;
-            color: white;
-
-
-            &:hover{
-                color: $teal;
-                border: 1px solid $teal;
-                background-color: transparent;
-            }
-
-        }
-
-
+    [contenteditable] {
+      &:focus {
+        outline: 1px solid $green;
+      }
     }
 
-    &__header{
-        text-align: center;
-        font-size: 2.5vw;
-        margin-bottom: 3vw;
+    button {
+      display: flex;
+      margin: 2vw 0;
+      font-size: 0.8em;
+      width: 100%;
+      justify-content: center;
+      background-color: $teal;
+      height: 7vh;
+      border-radius: 7vw;
+      color: white;
+
+      &:hover {
+        color: $teal;
+        border: 1px solid $teal;
+        background-color: transparent;
+      }
     }
+  }
+
+  &__header {
+    text-align: center;
+    font-size: 2.5vw;
+    margin-bottom: 3vw;
+  }
+}
+
+@media screen and(min-width: $tablet-min) {
+  .user-page {
+    &__content {
+      width: $content-width--tablet;
+    }
+
+    &__header {
+      text-align: center;
+      font-size: 1.85vw;
+      margin-bottom: 3vw;
+    }
+  }
 }

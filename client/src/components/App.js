@@ -13,16 +13,16 @@ import UserLocationPage from './UserLocationPage'
 
 
 function App(props) {
-  let { userId, firstName, lastName, userName, email, userCollections, currentCollectionPlants, userPlants, userPlantsInfo, searchResults, currPlant, currSearchResult } = props.state
+  let { userId, firstName, lastName, userName, email, userCollections, currentCollectionPlants, userPlants, userPlantsInfo, searchResults, currPlant, currSearchResult, isLoggedIn } = props.state
   return (
     <div className="App">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} userName={userName}/>
       <Switch>
         <Route exact path="/" 
         // component={LandingPage} 
         render={(p) => <LogIn handleLogin={props.handleLogin} history={p.history}/>}/>
         <Route path="/login" render={(p) => <LogIn handleLogin={props.handleLogin} history={p.history}/>} />
-        <Route exact path="/user" render={() => <User userId={userId} firstName={firstName} lastName={lastName} userName={userName} email={email} handleUpdateUser={props.handleUpdateUser} updateUserRef={props.updateUserRef} />} />
+        <Route exact path="/user" render={() => <User userId={userId} firstName={firstName} lastName={lastName} userName={userName} email={email} handleUpdateUser={props.handleUpdateUser} updateUserRef={props.updateUserRef} handleLogOut={props.handleLogOut}/>} />
         <Route exact path="/user/garden" render={() =>
           <UserGarden userCollections={userCollections} userPlants={userPlants} updatePlantSchedule={props.updatePlantSchedule} userPlantsInfo={userPlantsInfo} />} />
         <Route exact path="/login/user/garden" render={(p) =>

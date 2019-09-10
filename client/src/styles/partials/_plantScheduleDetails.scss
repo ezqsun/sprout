@@ -7,8 +7,7 @@
   padding: 1vh 1vw;
   display: flex;
   justify-content: space-around;
-  margin-right: 1vw;      
-
+  margin-right: 1vw;
 
   &__icon {
     width: 20%;
@@ -17,38 +16,34 @@
     // border-right: 1px solid $white;
     // padding-right: 1.5vw;
 
-    &__separator{
+    &__separator {
       border-left: 1px solid $white;
       padding-left: 3vw;
-
     }
   }
 
-  &__text{
+  &__text {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 2.5vw;
+    background-color: $white;
+    color: $grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &--red {
+      background-color: rgb(255, 115, 115);
       width: 5vw;
       height: 5vw;
       border-radius: 2.5vw;
-      background-color: $white;
       color: $grey;
       display: flex;
       justify-content: center;
       align-items: center;
-      &--red{
-
-          background-color: rgb(255, 115, 115);
-          width: 5vw;
-          height: 5vw;
-          border-radius: 2.5vw;
-          color: $grey;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-      }
-
+    }
   }
 
-  &__hover-text{
+  &__hover-text {
     font-size: 0.65em;
     display: flex;
     flex-direction: row;
@@ -61,20 +56,88 @@
     animation: fade-in-up 1s ease fowards;
     width: 100%;
 
-
-    &-box{
+    &-box {
       margin-left: 6vw;
       height: 100%;
 
-      &:hover{
-        span{
+      &:hover {
+        span {
           color: $green;
           transition: 0.4s ease;
         }
         cursor: pointer;
       }
+    }
+  }
+}
 
+@media screen and(min-width: $tablet-min) {
+  .schedule-detail {
+    width: 30%;
+    padding: 1vw;
+    display: flex;
+    justify-content: space-around;
+    margin-right: 1vw;
+
+    &__icon {
+      width: 20%;
+      height: auto;
+      margin-right: 1vw;
+
+      &__separator {
+        border-left: 1px solid $white;
+        padding-left: 1.5vw;
+      }
     }
 
+    &__text {
+      width: 2.5vw;
+      height: 2.5vw;
+      border-radius: 1.25vw;
+      background-color: $white;
+      color: $grey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8em;
+
+      &--red {
+        background-color: rgb(255, 115, 115);
+        width: 2.5vw;
+        height: 2.5vw;
+        border-radius: 1.25vw;
+        color: $grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.8em;
+      }
+    }
+
+    &__hover-text {
+      font-size: 0.75em;
+      display: flex;
+      flex-direction: row;
+      color: white;
+      visibility: hidden;
+      height: 3vw;
+      top: 3vw;
+      align-items: flex-end;
+      animation: fade-in-up 1s ease fowards;
+      width: 100%;
+
+      &-box {
+        margin-left: 4vw;
+        height: 100%;
+
+        &:hover {
+          span {
+            color: $green;
+            transition: 0.4s ease;
+          }
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

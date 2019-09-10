@@ -81,12 +81,8 @@ export default class PlantInfo extends React.Component {
     }
     redirectPage = (event) =>{
         event.preventDefault()
-
-        console.log('2')
         window.history.back()
     }
-
-
     render() {
         console.log(this.state)
         console.log(this.props)

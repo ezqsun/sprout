@@ -2,67 +2,62 @@
 @import "./dimensions";
 @import "./animations";
 
+.signup {
+  font-size: 2.7vw;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.signup{
-    font-size: 2.7vw;
-    width: 100vw;
+  &__content {
+    margin-top: 6vw;
+    width: $form-width--mobile;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+  }
+  &__title {
+    font-size: 1.5em;
+    margin: 5vh 0;
+    font-weight: 500;
+  }
 
-    &__content{
-        margin-top: 6vw;
-        width: $form-width--mobile;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 5vh 0;
 
+    &__input {
+      margin: 2.5vw 0;
     }
-    &__title{
-        font-size: 1.5em;
-        margin: 5vh 0;
-        font-weight: 500;
+  }
+
+  &__submit {
+    &:hover {
+      animation: text-to-green 1s ease forwards;
     }
-
-    &__form{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        margin: 5vh 0;
-
-        &__input{
-            margin: 2.5vw 0;
-        }
-
-    }
-
-    &__submit{
-        &:hover{
-            animation: text-to-green 1s ease forwards;
-        }
-    }
+  }
 }
 
-@media screen and(min-width:$tablet-min){
-    .signup{
-        font-size: 2vw;
-    
-        &__content{
-            margin-top: 10vh;
-            width: $form-width--tablet;
-    
-        }
-        &__title{
-            margin: 3vh 0;
-        }
-    
-        &__form{
-            margin: 3vh 0;
-    
-            &__input{
-                margin: 2.5vh 0;
-            }
-    
-        }
+@media screen and(min-width:$tablet-min) {
+  .signup {
+    font-size: 2vw;
+
+    &__content {
+      margin-top: 10vh;
+      width: $form-width--tablet;
     }
+    &__title {
+      margin: 3vh 0;
+    }
+
+    &__form {
+      margin: 3vh 0;
+
+      &__input {
+        margin: 2.5vh 0;
+      }
+    }
+  }
 }

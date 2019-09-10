@@ -67,3 +67,33 @@
     }
   }
 }
+
+@media screen and(min-width: $tablet-min){
+  .plant-info-page {
+  
+    .plant-info__content {
+      width: $content-width--tablet;
+  
+      &__title {
+  
+        div {
+  
+          &-pet-name {
+            font-weight: 400;
+          }
+        }
+      }
+      &__image {
+        height: 18vw;
+      }
+    }
+  
+    button {
+      margin: 2vw 0;
+      width: 50%;
+      height: 5vw;
+      border-radius: 2.5vw;
+  
+    }
+  }
+}

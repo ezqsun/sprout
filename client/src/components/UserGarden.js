@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import PlantCard from './PlantCard'
 
 export default function UserGarden(props) {
-    // let userCollectionCards = props.userCollections.map(collection=>{
-    //     return <Link to={`/user/garden/${collection.id}`}><UserCollectionCard collection={collection} /></Link>
-
-    // })
     let { userCollections, userPlants, updatePlantSchedule, userPlantsInfo, handleSelectPlantInfo } = props
 
     let plantCards =
@@ -34,9 +30,7 @@ export default function UserGarden(props) {
                     </div>
                 </div>
                 <div className="user-garden__collections">
-                    {/* {userCollectionCards} */}
                     {plantCards}
-
                 </div>
             </div>
         </article >

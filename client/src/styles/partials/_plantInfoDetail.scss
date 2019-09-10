@@ -2,22 +2,42 @@
 @import "./colours";
 @import "./dimensions";
 
-.plant-info__details__category{
+.plant-info__details__category {
+  width: 100%;
+  font-size: 2.3vw;
+  display: flex;
+  flex-direction: row;
+  padding: 2vw;
+
+  &-title {
+    width: 25%;
+    padding-right: 1vw;
+    border-right: 1px solid #d1d1d1;
+  }
+
+  &-content {
+    width: 75%;
+    padding-left: 2vw;
+  }
+}
+
+@media screen and(min-width: $tablet-min) {
+  .plant-info__details__category {
     width: 100%;
-    font-size: 2.3vw;
+    font-size: 1.5vw;
     display: flex;
     flex-direction: row;
-    padding: 2vw;
+    padding: 1vw;
 
-    &-title{
-        width: 25%;
-        padding-right: 1vw;
-        border-right: 1px solid #d1d1d1;
+    &-title {
+      width: 25%;
+      padding-right: 1vw;
+      border-right: 1px solid #d1d1d1;
     }
 
-    &-content{
-        width: 75%;
-        padding-left: 2vw;
+    &-content {
+      width: 75%;
+      padding-left: 1.5vw;
     }
-
+  }
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
-    return (
+export default function Navbar(props) {
+    return props.isLoggedIn || props.userName.length ?
         <section className="navbar">
             <div className="navbar__content">
                 <div className="navbar__content__logo">
@@ -15,5 +15,12 @@ export default function Navbar() {
                 </div>
             </div>
         </section>
-    )
+        :
+        <section className="navbar">
+            <div className="navbar__content">
+                <div className="navbar__content__logo">
+                    <Link to="/">sprout</Link>
+                </div>
+            </div>
+        </section>
 }

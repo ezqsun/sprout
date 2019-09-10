@@ -26,8 +26,7 @@ export default class AppContainer extends React.Component {
             searchResults: [],
             currSearchResult: {},
             isLoading: true,
-            token: "",
-            axiosHeader: {}
+            isLoggedIn: false,
         }
     }
 
@@ -50,7 +49,7 @@ export default class AppContainer extends React.Component {
         axios.post('/register', userData, {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
             .then(response => {
                 console.log(response.data)
-                this.handleLogin(userData.email, userData.password, history)
+                this.handleLogin(userData.email, userData.password)
             })
             .catch(error => console.log(error))
     }
@@ -79,16 +78,6 @@ export default class AppContainer extends React.Component {
             })
             .catch(error => console.log('error setting collection: ' + error))
     }
-
-    // setPlants = (collectionId) =>{
-    //     axios.get(`/user/${this.state.userId}/plants/${collectionId}`)
-    //     .then(response=>{
-    //         this.setState({
-    //             currentCollectionPlants: response.data
-    //         })
-    //     })
-    //     .catch(error=>console.log('error setting plants: ' + error))
-    // }
 
     setAllPlants = () => {
         axios.get(`/user/${this.state.userId}/plants`,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
@@ -272,11 +261,8 @@ export default class AppContainer extends React.Component {
         axios.post('/login', { email: email, password: password })
             .then(response => {
                 this.setState({
-                    token: response.data.token,
-                    axiosHeader: {
-                        'headers': { 'Authorization': `Bearer ${response.data.token}` }
-                    },
-                    userId: response.data.userId
+                    userId: response.data.userId,
+                    isLoggedIn: true,
                 })
                 sessionStorage.setItem('token', response.data.token)
                 let promises = [this.setUser(), this.setCollection(), this.setAllPlants()]
@@ -290,6 +276,12 @@ export default class AppContainer extends React.Component {
 
             })
             .catch(error => "error logging in: " + error)
+    }
+
+    handleLogOut = () =>{
+        sessionStorage.removeItem('token')
+        this.setState({isLoggedIn: false})
+        window.location.replace("http://localhost:3000/")
     }
 
     componentDidMount() {
@@ -327,6 +319,7 @@ export default class AppContainer extends React.Component {
                 handleUpdateUser={this.handleUpdateUser}
                 updateUserRef={this.updateUserRef}
                 handleLogin={this.handleLogin}
+                handleLogOut={this.handleLogOut}
                 history={history}
             />
 

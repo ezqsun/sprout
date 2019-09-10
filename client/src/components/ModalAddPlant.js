@@ -9,16 +9,16 @@ export default function ModalAddPlant(props) {
                 </div>
                 <form className="add-plant__content__form" ref={props.addPlantRef}>
                     <input className="add-plant__content__form__input" name="plant-name" placeholder={`eg. ${props.plantName}`}></input>
-                    <input className="add-plant__content__form__input" name="last-watered" title="date in yyyy-mm-dd format" placeholder="yyyy-mm-dd"></input>
-                    <input className="add-plant__content__form__input" name="last-fertilized" placeholder="yyyy-mm-dd"></input>
+                    <input className="add-plant__content__form__input" name="last-watered" title="date in yyyy-mm-dd format" placeholder="date last watered: yyyy-mm-dd"></input>
+                    <input className="add-plant__content__form__input" name="last-fertilized" placeholder="date last fertilized: yyyy-mm-dd"></input>
                     <label>*if just purchased, please fill in with the purchase date</label>
                     <button className="add-plant__content__submit" onClick={(event) => {
                         props.handleAddPlant(event, props.plantData.id)
+                        window.history.back()
                     }}>add</button>
                     <button className="add-plant__content__cancel" onClick={(event) => {
-                        // props.handleAddPlant(event, props.plantData.id)}
-                        // console.log('3')
-                        props.redirectPage(event)}
+                        props.redirectPage(event)
+                    }
                     }>cancel</button>
                 </form>
             </div>
