@@ -46,16 +46,24 @@ export default class AppContainer extends React.Component {
             password: this.registerRef.current.password.value,
         }
 
-        axios.post('/register', userData)
-            .then(response => {
-                // console.log(response.data)
-                this.handleLogin(userData.email, userData.password)
-            })
-            .catch(error => console.log(error))
+        let incomplete = Object.values(userData).filter(data => {
+            return !data.length
+        })
+
+        if (incomplete.length) {
+            alert('Please fill in all the fields')
+        } else {
+            axios.post('/register', userData)
+                .then(response => {
+                    // console.log(response.data)
+                    this.handleLogin(userData.email, userData.password)
+                })
+                .catch(error => console.log(error))
+        }
     }
 
     setUser = () => {
-        axios.get(`/user/${this.state.userId}`,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.get(`/user/${this.state.userId}`, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(response => {
                 let { userId, firstName, lastName, userName, email } = response.data
                 this.setState({
@@ -70,7 +78,7 @@ export default class AppContainer extends React.Component {
     }
 
     setCollection = () => {
-        axios.get(`/user/${this.state.userId}/garden`,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.get(`/user/${this.state.userId}/garden`, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(response => {
                 this.setState({
                     userCollections: response.data
@@ -80,7 +88,7 @@ export default class AppContainer extends React.Component {
     }
 
     setAllPlants = () => {
-        axios.get(`/user/${this.state.userId}/plants`,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.get(`/user/${this.state.userId}/plants`, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(response => {
                 this.setState({ userPlants: response.data })
 
@@ -111,7 +119,7 @@ export default class AppContainer extends React.Component {
         axios.put(`/user/${this.state.userId}/${plantId}`, {
             value: formatToday(),
             category: category
-        },  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
+        }, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(response => {
                 this.setAllPlants()
             })
@@ -176,34 +184,34 @@ export default class AppContainer extends React.Component {
             if (isValidDate(newPlant.lastWatered) && isValidDate(newPlant.lastFertilized)) {
                 this.addPlantRef.current.reset()
 
-                axios.post(`/user/${this.state.userId}/add-plant`, newPlant,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
-                    .then(response => { 
-                        axios.get(`/user/${this.state.userId}/plants`,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
-                        .then(response => {
-                            this.setState({ userPlants: response.data })
-            
-                            //sets userPlantsInfo with array of data for all user plants
-                            let promises = []
-                            response.data.forEach(plant => {
-                                plant.trefleReferenceId < 100 ?
-                                    promises.push(axios.get(`/plant/harvesthelper/${plant.trefleReferenceId}`))
-                                    :
-                                    promises.push(axios.get(`/plant/trefle/${plant.trefleReferenceId}`))
-                            })            
-                            axios.all(promises)
-                                .then(results => {
-                                    let trefleData = []
-                                    results.forEach(response => {
-                                        trefleData.push(response.data)
-                                    })
-                                    this.setState({ userPlantsInfo: trefleData })
+                axios.post(`/user/${this.state.userId}/add-plant`, newPlant, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                    .then(response => {
+                        axios.get(`/user/${this.state.userId}/plants`, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                            .then(response => {
+                                this.setState({ userPlants: response.data })
 
+                                //sets userPlantsInfo with array of data for all user plants
+                                let promises = []
+                                response.data.forEach(plant => {
+                                    plant.trefleReferenceId < 100 ?
+                                        promises.push(axios.get(`/plant/harvesthelper/${plant.trefleReferenceId}`))
+                                        :
+                                        promises.push(axios.get(`/plant/trefle/${plant.trefleReferenceId}`))
                                 })
-                                .catch(error => console.log('error setting user plants trefle info: ' + error))
-            
-                        })
-                        .catch(error => console.log('error setting plants: ' + error))
-                     })
+                                axios.all(promises)
+                                    .then(results => {
+                                        let trefleData = []
+                                        results.forEach(response => {
+                                            trefleData.push(response.data)
+                                        })
+                                        this.setState({ userPlantsInfo: trefleData })
+
+                                    })
+                                    .catch(error => console.log('error setting user plants trefle info: ' + error))
+
+                            })
+                            .catch(error => console.log('error setting plants: ' + error))
+                    })
                     .catch(error => console.log('error adding plant: ' + error))
             } else {
 
@@ -222,7 +230,7 @@ export default class AppContainer extends React.Component {
 
     handleRemovePlant = (event, plantId) => {
         event.preventDefault()
-        axios.delete(`/user/${this.state.userId}/${plantId}`,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.delete(`/user/${this.state.userId}/${plantId}`, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(response => {
                 // console.log(response)
                 this.setAllPlants()
@@ -244,7 +252,7 @@ export default class AppContainer extends React.Component {
                 newInfo[key] = this.state[key]
             }
         })
-        axios.put(`/user/${this.state.userId}`, newInfo,  {'headers': {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.put(`/user/${this.state.userId}`, newInfo, { 'headers': { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(response => {
                 console.log(response)
                 this.setUser()
@@ -272,12 +280,15 @@ export default class AppContainer extends React.Component {
                     .catch(error => console.log('error setting user, user collections, and user plants: ' + error))
 
             })
-            .catch(error => "error logging in: " + error)
+            .catch(error => {
+                console.log("error logging in: " + error)
+                alert('error logging in. Please double check email and password')
+            })
     }
 
-    handleLogOut = () =>{
+    handleLogOut = () => {
         sessionStorage.removeItem('token')
-        this.setState({isLoggedIn: false})
+        this.setState({ isLoggedIn: false })
         window.location.replace("http://localhost:3000/")
     }
 
